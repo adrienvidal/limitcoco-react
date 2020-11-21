@@ -6,9 +6,7 @@
     "scripts": {
         "start": "node server.js",
         "server": "nodemon server.js",
-        "client": "npm start --prefix client",
-        "storybook": "npm run storybook --prefix client",
-        "clientinstall": "npm install --prefix client"
+        "client": "npm start --prefix client"
     },
     "dependencies": {
         "socket.io": "^2.3.0"
