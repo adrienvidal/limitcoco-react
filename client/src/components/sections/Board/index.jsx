@@ -1,11 +1,16 @@
-import React from 'react';
-import QuestionCard from '../../common/QuestionCard';
-import AnswerCard from '../../common/AnswerCard';
-import style from './index.module.scss';
+import React from 'react'
+import QuestionCard from '../../common/QuestionCard'
+import AnswerCard from '../../common/AnswerCard'
+import style from './index.module.scss'
 
 const Board = () => {
-
-  const test = 'popo';
+  const answerCards = [
+    'Le slip de Jean-Pierre',
+    'Le slip de Jean-Pierre',
+    'Le slip de Jean-Pierre',
+    'Le slip de Jean-Pierre',
+    'Le slip de Jean-Pierre',
+  ]
 
   return (
     <div className={style.main}>
@@ -15,26 +20,17 @@ const Board = () => {
         </div>
       </div>
       <div className={style.bottom}>
+        <h3 className={style.title}>Choose your card(s)</h3>
         <div className={style['cards-hand']}>
-          <div className={style['card-wrapper']}>
-            <AnswerCard />
-          </div>
-          <div className={style['card-wrapper']}>
-            <AnswerCard />
-          </div>
-          <div className={style['card-wrapper']}>
-            <AnswerCard />
-          </div>
-          <div className={style['card-wrapper']}>
-            <AnswerCard />
-          </div>
-          <div className={style['card-wrapper']}>
-            <AnswerCard />
-          </div>
+          {answerCards.map((answerCard) => (
+            <div className={style['card-wrapper']}>
+              <AnswerCard />
+            </div>
+          ))}
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Board;
+export default Board

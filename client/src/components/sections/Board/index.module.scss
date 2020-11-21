@@ -9,6 +9,7 @@
 
   .top {
     flex-grow: 1;
+    height: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,12 +20,22 @@
 
   .bottom {
     flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: 50%;
+
+    .title {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 30px;
+      font-weight: 300;
+    }
 
     .cards-hand {
       display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .card-wrapper {
+      }
     }
   }
 }
