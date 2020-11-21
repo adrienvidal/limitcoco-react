@@ -1,0 +1,30 @@
+@import '../../../assets/styles/common/common';
+
+.main {
+  background-color: $grey;
+  width: 100%;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+
+  .top {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .card-wrapper {
+    }
+  }
+
+  .bottom {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .cards-hand {
+      display: flex;
+    }
+  }
+}

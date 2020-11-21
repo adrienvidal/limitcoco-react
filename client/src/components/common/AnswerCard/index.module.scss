@@ -1,0 +1,12 @@
+@import '../../../assets/styles/common/common';
+
+.main {
+  background: $primary;
+  height: 200px;
+  width: 150px;
+  border-radius: 10px;
+  color: $white;
+  border: 1px solid #00000030;
+  font-size: 11px;
+  padding: 20px 7px;
+}
