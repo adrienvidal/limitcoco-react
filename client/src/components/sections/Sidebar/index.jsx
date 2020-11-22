@@ -2,11 +2,12 @@ import React, { useContext } from 'react'
 import style from './index.module.scss'
 import logo from '../../../assets/images/logo.jpg'
 
+// context
 import GameContext from '../../../context/game/gameContext'
 
 const Sidebar = () => {
   const gameContext = useContext(GameContext)
-  const { players } = gameContext
+  const { users } = gameContext
 
   return (
     <div className={style.main}>
@@ -16,17 +17,17 @@ const Sidebar = () => {
 
       <div className={style.players}>
         {/* player */}
-        {players &&
-          players.map((player) => {
+        {users &&
+          users.map((user) => {
             return (
-              <div key={player.id} className={style.player}>
+              <div key={user.id} className={style.player}>
                 <ul>
-                  <li className={style.name}>{player.name}</li>
+                  <li className={style.name}>{user.name}</li>
                   <li>
-                    Score: <span>{player.score}</span>
+                    Score: <span>{user.score}</span>
                   </li>
                   <li>
-                    Statut: <span>{player.statut}</span>
+                    Statut: <span>{user.statut}</span>
                   </li>
                 </ul>
               </div>

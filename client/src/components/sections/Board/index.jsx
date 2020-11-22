@@ -1,7 +1,8 @@
 import React from 'react'
-import QuestionCard from '../../common/QuestionCard'
 import AnswerCard from '../../common/AnswerCard'
 import style from './index.module.scss'
+
+import QuestionBoard from './QuestionBoard'
 
 const Board = () => {
   const answerCards = [
@@ -15,9 +16,7 @@ const Board = () => {
   return (
     <div className={style.main}>
       <div className={style.top}>
-        <div className={style['card-wrapper']}>
-          <QuestionCard />
-        </div>
+        <QuestionBoard />
       </div>
       <div className={style.bottom}>
         <h3 className={style.title}>Choose your card(s)</h3>
