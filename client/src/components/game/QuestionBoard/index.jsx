@@ -1,5 +1,5 @@
 import React from 'react'
-import QuestionCard from '../../../common/QuestionCard'
+import QuestionCard from '../../common/QuestionCard'
 import style from './index.module.scss'
 
 const QuestionBoard = () => {
