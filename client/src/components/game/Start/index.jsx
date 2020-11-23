@@ -18,7 +18,9 @@ const Start = () => {
     <div className={style.main}>
       <div className={style.inner}>
         <img src={logo} alt='logo' />
-        <Button1 onAction={onAction} text={'Start'} />
+        <div className={style.cta}>
+          <Button1 onAction={onAction} text={'Start'} />
+        </div>
       </div>
     </div>
   )

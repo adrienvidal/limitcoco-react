@@ -1,4 +1,15 @@
 @import '../../../assets/styles/common/common';
 
 .main {
+  background-color: $grey;
+  border: none;
+  color: $white;
+  text-transform: uppercase;
+  font-size: 25px;
+  padding: 10px 60px;
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
 }
