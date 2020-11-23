@@ -10,7 +10,7 @@ const QuestionBoard = () => {
   const { users } = gameContext
 
   // get your data
-  const userYou = users.filter((user) => user.isYou)
+  const userYou = users.find((user) => user.isYou)
 
   // hand simulation
   const translateCard = 60
@@ -23,11 +23,11 @@ const QuestionBoard = () => {
         style={{
           transform:
             'translateX(' +
-            (translateCard * (userYou[0].cards.length - 1)) / 2 +
+            (translateCard * (userYou.cards.length - 1)) / 2 +
             'px)',
         }}
       >
-        {userYou[0].cards.map((card, index) => {
+        {userYou.cards.map((card, index) => {
           return (
             <div
               key={card.id}
