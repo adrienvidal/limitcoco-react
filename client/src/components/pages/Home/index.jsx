@@ -23,7 +23,7 @@ function Home() {
   return (
     <div className={style.main}>
       {phase === 'start' && <Start />}
-      {phase === 'playersChoice' && <Game />}
+      {phase.indexOf('game') > -1 && <Game />}
     </div>
   )
 }

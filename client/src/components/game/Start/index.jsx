@@ -11,7 +11,7 @@ const Start = () => {
   const { setPhase } = gameContext
 
   const onAction = () => {
-    setPhase('playersChoice')
+    setPhase('game-init')
   }
 
   return (
