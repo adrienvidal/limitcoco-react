@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import style from './index.module.scss'
+import Start from '../../game/Start'
 import Game from '../../game/Game'
 
 // context
@@ -21,7 +22,8 @@ function Home() {
 
   return (
     <div className={style.main}>
-      <Game />
+      {phase === 'start' && <Start />}
+      {phase === 'playersChoice' && <Game />}
     </div>
   )
 }

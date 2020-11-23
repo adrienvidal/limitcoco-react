@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react'
 import GameContext from './gameContext'
 import gameReducer from './gameReducer'
-import { GET_PLAYERS } from '../types'
+import { SET_PHASE } from '../types'
 
 const GameState = (props) => {
   const initialState = {
@@ -158,7 +158,10 @@ const GameState = (props) => {
 
   const [state, dispatch] = useReducer(gameReducer, initialState)
 
-  // Get players
+  // Change phase
+  const setPhase = (phase) => {
+    dispatch({ type: SET_PHASE, payload: phase })
+  }
 
   return (
     <GameContext.Provider
@@ -170,6 +173,7 @@ const GameState = (props) => {
         answersDeck: state.answersDeck,
         currentPlayer: state.currentPlayer,
         numPlayers: state.numPlayers,
+        setPhase,
       }}
     >
       {props.children}

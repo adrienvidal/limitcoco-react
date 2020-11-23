@@ -1,0 +1,9 @@
+@import '../../../assets/styles/common/common';
+
+.main {
+  background-color: $secondary;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
