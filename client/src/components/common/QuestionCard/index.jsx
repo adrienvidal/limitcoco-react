@@ -1,12 +1,12 @@
-import React from 'react';
-import style from './index.module.scss';
+import React from 'react'
+import style from './index.module.scss'
 
-const QuestionCard = () => {
+const QuestionCard = ({ card }) => {
   return (
     <div className={style.main}>
-      <p>_ _ _ _ a mangé un burger au chocolat</p>
+      <p>{card.desc}</p>
     </div>
-  );
-};
+  )
+}
 
-export default QuestionCard;
+export default QuestionCard

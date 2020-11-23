@@ -12,6 +12,7 @@ const GameState = (props) => {
         score: 0,
         statut: 'wait',
         isYou: true,
+        isKing: false,
         cards: [
           {
             id: 1,
@@ -31,7 +32,7 @@ const GameState = (props) => {
             id: 3,
             desc: 'Le slip de Jean-Pierre3',
             type: 'answer',
-            isSelected: false,
+            isSelected: true,
             isPlayed: false,
           },
           {
@@ -56,6 +57,7 @@ const GameState = (props) => {
         score: 0,
         statut: 'wait',
         isYou: false,
+        isKing: false,
         cards: [
           {
             id: 1,
@@ -100,6 +102,7 @@ const GameState = (props) => {
         score: 0,
         statut: 'wait',
         isYou: false,
+        isKing: true,
         cards: [
           {
             id: 1,
@@ -139,6 +142,14 @@ const GameState = (props) => {
         ],
       },
     ],
+    currentQuestion: {
+      id: 1,
+      desc: '____ a mangé un burger aux fraises',
+      answers: 1,
+      type: 'question',
+    },
+    questionsDeck: [],
+    answersDeck: [],
   }
 
   const [state, dispatch] = useReducer(gameReducer, initialState)
@@ -149,6 +160,9 @@ const GameState = (props) => {
     <GameContext.Provider
       value={{
         users: state.users,
+        currentQuestion: state.currentQuestion,
+        questionsDeck: state.questionsDeck,
+        answersDeck: state.answersDeck,
       }}
     >
       {props.children}

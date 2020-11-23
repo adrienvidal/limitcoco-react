@@ -3,7 +3,7 @@ import style from './index.module.scss'
 
 const AnswerCard = ({ card }) => {
   return (
-    <div className={style.main}>
+    <div className={`${style.main} ${card.isSelected && 'active'}`}>
       <p>{card.desc}</p>
     </div>
   )
