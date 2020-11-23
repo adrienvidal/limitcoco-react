@@ -5,6 +5,8 @@ import { GET_PLAYERS } from '../types'
 
 const GameState = (props) => {
   const initialState = {
+    // phase |start|playersChoice|kingChoice|winner
+    phase: 'start',
     users: [
       {
         id: 1,
@@ -32,7 +34,7 @@ const GameState = (props) => {
             id: 3,
             desc: 'Le slip de Jean-Pierre3',
             type: 'answer',
-            isSelected: true,
+            isSelected: false,
             isPlayed: false,
           },
           {
@@ -150,6 +152,8 @@ const GameState = (props) => {
     },
     questionsDeck: [],
     answersDeck: [],
+    currentPlayer: 1,
+    numPlayers: 3,
   }
 
   const [state, dispatch] = useReducer(gameReducer, initialState)
@@ -159,10 +163,13 @@ const GameState = (props) => {
   return (
     <GameContext.Provider
       value={{
+        phase: state.phase,
         users: state.users,
         currentQuestion: state.currentQuestion,
         questionsDeck: state.questionsDeck,
         answersDeck: state.answersDeck,
+        currentPlayer: state.currentPlayer,
+        numPlayers: state.numPlayers,
       }}
     >
       {props.children}

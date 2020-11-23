@@ -1,10 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import style from './index.module.scss'
-import Board from '../../game/Board'
-import Sidebar from '../../game/Sidebar'
+import Game from '../../game/Game'
+
+// context
+import GameContext from '../../../context/game/gameContext'
+
 // import io from "socket.io-client"
 
 function Home() {
+  const gameContext = useContext(GameContext)
+  const { phase } = gameContext
+
   useEffect(() => {
     /* const socket = io(process.env.REACT_APP_SERVER_URL);
 		 socket.on("connect", () => {
@@ -15,8 +21,7 @@ function Home() {
 
   return (
     <div className={style.main}>
-      <Board />
-      <Sidebar />
+      <Game />
     </div>
   )
 }

@@ -9,4 +9,10 @@
   border: 1px solid #00000030;
   font-size: 11px;
   padding: 20px 7px;
+
+  &.active {
+    transform: translateY(-60px);
+    border: none;
+    box-shadow: 0 0 0 2px $white;
+  }
 }
