@@ -2,7 +2,7 @@
 
 .main {
   background-color: $grey;
-  width: 100%;
+  width: calc(100% - 300px);
   color: #fff;
   display: flex;
   flex-direction: column;

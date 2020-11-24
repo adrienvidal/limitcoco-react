@@ -1,0 +1,29 @@
+@import '../../../assets/styles/common/common';
+
+.main {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 30px;
+  font-weight: 300;
+  color: $white;
+}
+
+.cards-hand {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  .card-wrapper {
+    width: 20%;
+  }
+}

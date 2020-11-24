@@ -1,12 +1,12 @@
 import React, { useReducer } from 'react'
 import GameContext from './gameContext'
 import gameReducer from './gameReducer'
-import { SET_PHASE } from '../types'
+import { SET_PHASE, SHOW_MODAL_CARDS } from '../types'
 
 const GameState = (props) => {
   const initialState = {
-    // phase |start|playersChoice|kingChoice|winner
-    phase: 'start',
+    // phase |start|game|winner
+    phase: 'game',
     users: [
       {
         id: 1,
@@ -46,6 +46,41 @@ const GameState = (props) => {
           },
           {
             id: 5,
+            desc: 'Le slip de Jean-Pierre5',
+            type: 'answer',
+            isSelected: false,
+            isPlayed: false,
+          },
+          {
+            id: 6,
+            desc: 'Le slip de Jean-Pierre5',
+            type: 'answer',
+            isSelected: false,
+            isPlayed: false,
+          },
+          {
+            id: 7,
+            desc: 'Le slip de Jean-Pierre5',
+            type: 'answer',
+            isSelected: false,
+            isPlayed: false,
+          },
+          {
+            id: 8,
+            desc: 'Le slip de Jean-Pierre5',
+            type: 'answer',
+            isSelected: false,
+            isPlayed: false,
+          },
+          {
+            id: 9,
+            desc: 'Le slip de Jean-Pierre5',
+            type: 'answer',
+            isSelected: false,
+            isPlayed: false,
+          },
+          {
+            id: 10,
             desc: 'Le slip de Jean-Pierre5',
             type: 'answer',
             isSelected: false,
@@ -154,6 +189,7 @@ const GameState = (props) => {
     answersDeck: [],
     currentPlayer: 1,
     numPlayers: 3,
+    modalCards: false,
   }
 
   const [state, dispatch] = useReducer(gameReducer, initialState)
@@ -161,6 +197,11 @@ const GameState = (props) => {
   // Change phase
   const setPhase = (phase) => {
     dispatch({ type: SET_PHASE, payload: phase })
+  }
+
+  // Show modal cards choice
+  const showModalCards = (isShown) => {
+    dispatch({ type: SHOW_MODAL_CARDS, payload: isShown })
   }
 
   return (
@@ -173,7 +214,9 @@ const GameState = (props) => {
         answersDeck: state.answersDeck,
         currentPlayer: state.currentPlayer,
         numPlayers: state.numPlayers,
+        modalCards: state.modalCards,
         setPhase,
+        showModalCards,
       }}
     >
       {props.children}
