@@ -24,7 +24,7 @@ const ModalCards = () => {
                 key={card.id}
                 className={style['card-wrapper']}
                 onClick={() => {
-                  selectCard(userYou.id, card)
+                  selectCard(userYou.id, card.id)
                 }}
               >
                 <AnswerCard card={card} />

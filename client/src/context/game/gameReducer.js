@@ -18,13 +18,39 @@ const contactReducer = (state, action) => {
       // get your data
       // const userYou = state.users.find((user) => user.isYou)
 
-      const test = state.users.map((user) => user)
       /* const test = {
         ...state,
-        users: state.users.map((user) => (user.isYou ? true : false)),
+        users: state.users.map((user) => {
+          if (user.isYou) {
+            const newCards = user.cards.map((card) => {
+              if (card.id === action.payload.cardId) {
+                card.isSelected = !card.isSelected
+                return card
+              } else {
+                return card
+              }
+            })
+
+            user.cards = newCards
+            debugger
+            return user
+          } else {
+            debugger
+            return user
+          }
+        }),
       } */
 
-      console.log('test', test)
+      const currentUser = state.users.find((user) => user.isYou)
+      const cards = currentUser.cards.map((card) => {
+        if (card.id === action.payload.cardId) {
+          card.isSelected = true
+        }
+        return card
+      })
+
+      console.log('currentUser', currentUser)
+      console.log('cards', cards)
 
       return state
     default:
