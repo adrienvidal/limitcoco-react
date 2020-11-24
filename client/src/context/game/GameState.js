@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react'
 import GameContext from './gameContext'
 import gameReducer from './gameReducer'
-import { SET_PHASE, SHOW_MODAL_CARDS } from '../types'
+import { SET_PHASE, SHOW_MODAL_CARDS, SELECT_CARDS } from '../types'
 
 const GameState = (props) => {
   const initialState = {
@@ -204,6 +204,11 @@ const GameState = (props) => {
     dispatch({ type: SHOW_MODAL_CARDS, payload: isShown })
   }
 
+  // Show modal cards choice
+  const selectCard = (userId, cardId) => {
+    dispatch({ type: SELECT_CARDS, payload: { userId, cardId } })
+  }
+
   return (
     <GameContext.Provider
       value={{
@@ -217,6 +222,7 @@ const GameState = (props) => {
         modalCards: state.modalCards,
         setPhase,
         showModalCards,
+        selectCard,
       }}
     >
       {props.children}

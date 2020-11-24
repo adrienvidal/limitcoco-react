@@ -4,10 +4,15 @@ import Sidebar from '../Sidebar'
 import ModalCards from '../ModalCards'
 import style from './index.module.scss'
 
+// context
+import GameContext from '../../../context/game/gameContext'
+
 const Game = () => {
+  const gameContext = useContext(GameContext)
+  const { modalCards } = gameContext
   return (
     <div className={style.main}>
-      <ModalCards />
+      {modalCards && <ModalCards />}
       <Board />
       <Sidebar />
     </div>
