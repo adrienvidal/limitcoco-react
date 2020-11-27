@@ -1,47 +1,23 @@
-const Server = require('socket.io');
+const app = require('express')()
 
-const { PORT } = require('./config');
-
-const io = new Server({
-  serveClient: false,
-});
-
-const defaultRoom = 'game-001';
-
-const state = {
-  game: null,
-  room: {
-    users: [],
+const server = require('http').createServer(app)
+const io = require('socket.io')(server, {
+  cors: {
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST'],
   },
-};
+})
 
 io.on('connection', (socket) => {
-  console.log('User connected', socket.id);
-
-  // for now, everyone joins the same room
-  socket.join(defaultRoom, () => {
-    state.room.users.push(socket.id);
-    io.to(defaultRoom).emit('room:update', state.room);
-  });
+  console.log('A user is connected', socket.id)
 
   socket.on('disconnect', () => {
-    console.log('User disconnected', socket.id);
-    state.room.users = state.room.users.filter((id) => id !== socket.id);
-    socket.to(defaultRoom).emit('room:update', state.room);
-  });
+    console.log('A user is disconnected', socket.id)
+  })
+})
 
-  socket.on('game:join', (cb) => {
-    console.log(socket.id, 'game:join');
-    cb(state.game);
-  });
-
-  socket.on('game:update', (newGameState, cb) => {
-    console.log(socket.id, 'game:update', newGameState);
-    state.game = newGameState;
-    // propagate the update to everyone in the room
-    socket.to(defaultRoom).emit('game:update', newGameState);
-    cb();
-  });
-});
-
-io.listen(PORT);
+// start server
+const PORT = process.env.PORT || 5000
+server.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`)
+})

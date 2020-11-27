@@ -1,9 +1,18 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useEffect } from 'react'
 import GameContext from './gameContext'
 import gameReducer from './gameReducer'
 import { SET_PHASE, SHOW_MODAL_CARDS, SELECT_CARDS } from '../types'
 
+import io from 'socket.io-client'
+
 const GameState = (props) => {
+  useEffect(() => {
+    const socket = io('http://localhost:5000')
+    socket.on('connect', () => {
+      console.log('New User', socket.id)
+    })
+  }, [])
+
   const initialState = {
     // phase |start|game|winner
     phase: 'game',

@@ -1,17 +1,26 @@
 {
-    "name": "limit-coco",
-    "private": true,
-    "version": "0.0.0",
-    "main": "server.js",
-    "scripts": {
-        "start": "node server.js",
-        "server": "nodemon server.js",
-        "client": "npm start --prefix client"
-    },
-    "dependencies": {
-        "socket.io": "^2.3.0"
-    },
-    "devDependencies": {
-        "nodemon": "^2.0.6"
-    }
+  "name": "limit-coco",
+  "version": "1.0.0",
+  "description": "https://xd.adobe.com/view/079d8138-0fb2-449b-766a-e2058d68b8ac-71ac/?fullscreen&hints=off",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adrienvidal/limitcoco-react-.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adrienvidal/limitcoco-react-/issues"
+  },
+  "homepage": "https://github.com/adrienvidal/limitcoco-react-#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.6",
+    "socket.io": "^3.0.3"
+  }
 }
