@@ -1,18 +1,15 @@
 import React, { useReducer, useEffect } from 'react'
 import GameContext from './gameContext'
 import gameReducer from './gameReducer'
-import { SET_PHASE, SHOW_MODAL_CARDS, SELECT_CARDS } from '../types'
-
+import {
+  SET_NEW_PLAYER,
+  SET_PHASE,
+  SHOW_MODAL_CARDS,
+  SELECT_CARDS,
+} from '../types'
 import io from 'socket.io-client'
 
 const GameState = (props) => {
-  useEffect(() => {
-    const socket = io('http://localhost:5000')
-    socket.on('connect', () => {
-      console.log('New User', socket.id)
-    })
-  }, [])
-
   const initialState = {
     // phase |start|game|winner
     phase: 'game',
@@ -203,6 +200,17 @@ const GameState = (props) => {
 
   const [state, dispatch] = useReducer(gameReducer, initialState)
 
+  //Init New User
+  const setNewUser = () => {
+    const socket = io('http://localhost:5000')
+    socket.on('connect', () => {
+      console.log('New User', socket.id)
+      dispatch({ type: SET_NEW_PLAYER, payload: socket.id })
+
+      // socket.emit('my-event', 'test-client')
+    })
+  }
+
   // Change phase
   const setPhase = (phase) => {
     dispatch({ type: SET_PHASE, payload: phase })
@@ -229,6 +237,7 @@ const GameState = (props) => {
         currentPlayer: state.currentPlayer,
         numPlayers: state.numPlayers,
         modalCards: state.modalCards,
+        setNewUser,
         setPhase,
         showModalCards,
         selectCard,

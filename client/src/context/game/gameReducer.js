@@ -1,7 +1,28 @@
-import { SET_PHASE, SHOW_MODAL_CARDS, SELECT_CARDS } from '../types'
+import {
+  SET_NEW_PLAYER,
+  SET_PHASE,
+  SHOW_MODAL_CARDS,
+  SELECT_CARDS,
+} from '../types'
 
 const contactReducer = (state, action) => {
   switch (action.type) {
+    case SET_NEW_PLAYER:
+      // todo: isYou: true
+      const newPlayer = {
+        id: action.payload,
+        name: 'John',
+        score: 0,
+        statut: 'wait',
+        isYou: false,
+        isKing: false,
+        cards: null,
+      }
+
+      return {
+        ...state,
+        users: [...state.users, newPlayer],
+      }
     case SET_PHASE:
       return {
         ...state,

@@ -8,12 +8,30 @@ const io = require('socket.io')(server, {
   },
 })
 
+// config game
+const defaultRoom = 'game-001'
+const state = {
+  game: null,
+  room: {
+    users: [],
+  },
+}
+
 io.on('connection', (socket) => {
   console.log('A user is connected', socket.id)
 
   socket.on('disconnect', () => {
     console.log('A user is disconnected', socket.id)
   })
+
+  // for now, everyone joins the same room
+  socket.join(defaultRoom, () => {
+    state.room.users.push(socket.id)
+  })
+
+  /* socket.on('my-event', (event) => {
+    console.log('my-event', event)
+  }) */
 })
 
 // start server

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Board from '../Board'
 import Sidebar from '../Sidebar'
 import ModalCards from '../ModalCards'
@@ -9,7 +9,12 @@ import GameContext from '../../../context/game/gameContext'
 
 const Game = () => {
   const gameContext = useContext(GameContext)
-  const { modalCards } = gameContext
+  const { setNewUser, modalCards } = gameContext
+
+  useEffect(() => {
+    setNewUser()
+  }, [])
+
   return (
     <div className={style.main}>
       {modalCards && <ModalCards />}
