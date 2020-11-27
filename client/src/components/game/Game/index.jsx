@@ -9,17 +9,13 @@ import GameContext from '../../../context/game/gameContext'
 
 const Game = () => {
   const gameContext = useContext(GameContext)
-  const { setNewUser, modalCards } = gameContext
-
-  useEffect(() => {
-    setNewUser()
-  }, [])
+  const { modalCards } = gameContext
 
   return (
     <div className={style.main}>
-      {modalCards && <ModalCards />}
+      {/* {modalCards && <ModalCards />}
       <Board />
-      <Sidebar />
+      <Sidebar /> */}
     </div>
   )
 }

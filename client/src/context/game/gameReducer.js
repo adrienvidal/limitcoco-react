@@ -1,4 +1,5 @@
 import {
+  INIT_SOCKET_CONNECT,
   SET_NEW_PLAYER,
   SET_PHASE,
   SHOW_MODAL_CARDS,
@@ -7,6 +8,8 @@ import {
 
 const contactReducer = (state, action) => {
   switch (action.type) {
+    case INIT_SOCKET_CONNECT:
+      return { ...action.payload }
     case SET_NEW_PLAYER:
       // todo: isYou: true
       const newPlayer = {
@@ -21,7 +24,7 @@ const contactReducer = (state, action) => {
 
       return {
         ...state,
-        users: [...state.users, newPlayer],
+        players: [...state.players, newPlayer],
       }
     case SET_PHASE:
       return {

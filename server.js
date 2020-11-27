@@ -11,27 +11,39 @@ const io = require('socket.io')(server, {
 // config game
 const defaultRoom = 'game-001'
 const state = {
-  game: null,
-  room: {
-    users: [],
-  },
+  players: [],
 }
 
 io.on('connection', (socket) => {
   console.log('A user is connected', socket.id)
 
+  socket.join(defaultRoom)
+
+  io.to(defaultRoom).emit('game:join', socket.id)
+
+  /*  socket.on("disconnect", () => {
+    console.log("User disconnected", socket.id);
+    state.room.users = state.players.filter(id => id !== socket.id);
+    socket.to(defaultRoom).emit("room:update", state.room);
+  }); */
+
+  /* socket.join(defaultRoom, () => {
+    //state.players.push(socket.id)
+    console.log(`${socket.id} is joining`)
+    io.to(defaultRoom).emit('game:join', socket.id)
+  })
+
+  socket.on('game:update', (newGameState, cb) => {
+    console.log(socket.id, 'game:update', newGameState)
+    state.game = newGameState
+    // propagate the update to everyone in the room
+    socket.to(defaultRoom).emit('game:update', newGameState)
+    cb()
+  }) */
+
   socket.on('disconnect', () => {
     console.log('A user is disconnected', socket.id)
   })
-
-  // for now, everyone joins the same room
-  socket.join(defaultRoom, () => {
-    state.room.users.push(socket.id)
-  })
-
-  /* socket.on('my-event', (event) => {
-    console.log('my-event', event)
-  }) */
 })
 
 // start server

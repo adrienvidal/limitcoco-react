@@ -2,6 +2,7 @@ import React, { useReducer, useEffect } from 'react'
 import GameContext from './gameContext'
 import gameReducer from './gameReducer'
 import {
+  INIT_SOCKET_CONNECT,
   SET_NEW_PLAYER,
   SET_PHASE,
   SHOW_MODAL_CARDS,
@@ -193,22 +194,50 @@ const GameState = (props) => {
     },
     questionsDeck: [],
     answersDeck: [],
-    currentPlayer: 1,
     numPlayers: 3,
     modalCards: false,
   }
 
-  const [state, dispatch] = useReducer(gameReducer, initialState)
+  const initialState2 = {
+    phase: 'start',
+    players: [],
+  }
+
+  const [state, dispatch] = useReducer(gameReducer, initialState2)
 
   //Init New User
-  const setNewUser = () => {
+  const initSocketConnection = () => {
     const socket = io('http://localhost:5000')
     socket.on('connect', () => {
       console.log('New User', socket.id)
-      dispatch({ type: SET_NEW_PLAYER, payload: socket.id })
+      console.log('state is', state)
 
-      // socket.emit('my-event', 'test-client')
+      socket.on('game:join', (playerId) => {
+        state.players.push(playerId)
+        dispatch({ type: SET_NEW_PLAYER, payload: state })
+        console.log(state)
+      })
+
+      /* socket.on('game:join', (playerId) => {
+        state.players.push(playerId)
+        dispatch({ type: SET_NEW_PLAYER, payload: state })
+        console.log(state)
+      })
+      socket.on('game:update', state, () => {
+        dispatch({ type: INIT_SOCKET_CONNECT, payload: state })
+      }) */
+
+      // state.players.push(socket.id)
+
+      /* socket.emit('game:update', state, () => {
+        dispatch({ type: INIT_SOCKET_CONNECT, payload: state })
+      }) */
     })
+
+    // socket.on('game:update', (newState) => {
+    //   console.log('game:update', newState)
+    //   dispatch({ type: INIT_SOCKET_CONNECT, payload: newState })
+    // })
   }
 
   // Change phase
@@ -234,10 +263,9 @@ const GameState = (props) => {
         currentQuestion: state.currentQuestion,
         questionsDeck: state.questionsDeck,
         answersDeck: state.answersDeck,
-        currentPlayer: state.currentPlayer,
         numPlayers: state.numPlayers,
         modalCards: state.modalCards,
-        setNewUser,
+        initSocketConnection,
         setPhase,
         showModalCards,
         selectCard,

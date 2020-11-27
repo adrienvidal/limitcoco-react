@@ -14,6 +14,7 @@ function Home() {
     <div className={style.main}>
       {phase === 'start' && <Start />}
       {phase.indexOf('game') > -1 && <Game />}
+      <Game />
     </div>
   )
 }
