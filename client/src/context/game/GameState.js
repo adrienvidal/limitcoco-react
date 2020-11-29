@@ -209,13 +209,17 @@ const GameState = (props) => {
   const initSocketConnection = () => {
     const socket = io('http://localhost:5000')
     socket.on('connect', () => {
-      console.log('New User', socket.id)
-      console.log('state is', state)
+      socket.on('game:join', (serverState, id) => {
+        console.log({ serverState })
+        console.log({ id })
 
-      socket.on('game:join', (playerId) => {
-        state.players.push(playerId)
-        dispatch({ type: SET_NEW_PLAYER, payload: state })
-        console.log(state)
+        // state.players.push(playerId)
+        // dispatch({ type: SET_NEW_PLAYER, payload: state })
+      })
+
+      socket.on('game:update', (serverState, id) => {
+        console.log({ serverState })
+        console.log({ id })
       })
 
       /* socket.on('game:join', (playerId) => {
