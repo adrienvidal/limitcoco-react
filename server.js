@@ -10,31 +10,20 @@ const io = require('socket.io')(server, {
 
 // config game
 const defaultRoom = 'game-001'
-const state = {
-  players: [],
-}
+var players = []
 
 io.on('connection', (socket) => {
-  console.log('A user is connected', socket.id)
-
   // join room & add new user players
   socket.join(defaultRoom)
-  state.players.push(socket.id)
-  io.to(defaultRoom).emit(
-    'game:join',
-    state,
-    'A user is connected ' + socket.id
-  )
+  players.push(socket.id)
+  io.to(defaultRoom).emit('game:join', players)
+  console.log('A user is connected', socket.id)
 
   socket.on('disconnect', () => {
     // remove id from room
+    players = players.filter((id) => id !== socket.id)
+    io.to(defaultRoom).emit('game:update', players)
     console.log('A user is disconnected', socket.id)
-    const newState = state.players.filter((player) => player !== socket.id)
-    io.to(defaultRoom).emit(
-      'game:update',
-      newState,
-      'A user is disconnected ' + socket.id
-    )
   })
 
   /*  socket.on("disconnect", () => {

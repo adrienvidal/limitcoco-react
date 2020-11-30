@@ -12,7 +12,7 @@ const Start = () => {
 
   const onAction = () => {
     initSocketConnection()
-    // setPhase('game-init')
+    setPhase('game-init')
   }
 
   return (

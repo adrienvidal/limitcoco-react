@@ -13,9 +13,9 @@ const Game = () => {
 
   return (
     <div className={style.main}>
-      {/* {modalCards && <ModalCards />}
+      {modalCards && <ModalCards />}
       <Board />
-      <Sidebar /> */}
+      <Sidebar />
     </div>
   )
 }

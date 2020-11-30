@@ -13,7 +13,8 @@ import io from 'socket.io-client'
 const GameState = (props) => {
   const initialState = {
     // phase |start|game|winner
-    phase: 'game',
+    phase: 'start',
+    players: [],
     users: [
       {
         id: 1,
@@ -198,28 +199,21 @@ const GameState = (props) => {
     modalCards: false,
   }
 
-  const initialState2 = {
-    phase: 'start',
-    players: [],
-  }
-
-  const [state, dispatch] = useReducer(gameReducer, initialState2)
+  const [state, dispatch] = useReducer(gameReducer, initialState)
 
   //Init New User
   const initSocketConnection = () => {
     const socket = io('http://localhost:5000')
     socket.on('connect', () => {
-      socket.on('game:join', (serverState, id) => {
-        console.log({ serverState })
-        console.log({ id })
+      socket.on('game:join', (serverState) => {
+        console.log('Connexion: ', serverState)
 
         // state.players.push(playerId)
         // dispatch({ type: SET_NEW_PLAYER, payload: state })
       })
 
-      socket.on('game:update', (serverState, id) => {
-        console.log({ serverState })
-        console.log({ id })
+      socket.on('game:update', (serverState) => {
+        console.log('Deconnexion: ', serverState)
       })
 
       /* socket.on('game:join', (playerId) => {
