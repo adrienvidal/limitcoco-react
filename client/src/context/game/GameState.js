@@ -13,184 +13,20 @@ import io from 'socket.io-client'
 const GameState = (props) => {
   var socket = null
   const initialState = {
-    users: [
-      {
-        id: 1,
-        name: 'John',
-        phase: 'start',
-        modalCards: false,
-        score: 0,
-        statut: 'wait',
-        isYou: true,
-        isKing: false,
-        cards: [
-          {
-            id: 1,
-            desc: 'Le slip de Jean-Pierre',
-            type: 'answer',
-            isSelected: false,
-            isPlayed: false,
-          },
-          {
-            id: 2,
-            desc: 'Le slip de Jean-Pierre2',
-            type: 'answer',
-            isSelected: false,
-            isPlayed: false,
-          },
-          {
-            id: 3,
-            desc: 'Le slip de Jean-Pierre3',
-            type: 'answer',
-            isSelected: false,
-            isPlayed: false,
-          },
-          {
-            id: 4,
-            desc: 'Le slip de Jean-Pierre4',
-            type: 'answer',
-            isSelected: false,
-            isPlayed: false,
-          },
-          {
-            id: 5,
-            desc: 'Le slip de Jean-Pierre5',
-            type: 'answer',
-            isSelected: false,
-            isPlayed: false,
-          },
-          {
-            id: 6,
-            desc: 'Le slip de Jean-Pierre5',
-            type: 'answer',
-            isSelected: false,
-            isPlayed: false,
-          },
-          {
-            id: 7,
-            desc: 'Le slip de Jean-Pierre5',
-            type: 'answer',
-            isSelected: false,
-            isPlayed: false,
-          },
-          {
-            id: 8,
-            desc: 'Le slip de Jean-Pierre5',
-            type: 'answer',
-            isSelected: false,
-            isPlayed: false,
-          },
-          {
-            id: 9,
-            desc: 'Le slip de Jean-Pierre5',
-            type: 'answer',
-            isSelected: false,
-            isPlayed: false,
-          },
-          {
-            id: 10,
-            desc: 'Le slip de Jean-Pierre5',
-            type: 'answer',
-            isSelected: false,
-            isPlayed: false,
-          },
-        ],
-      },
-      {
-        id: 2,
-        name: 'Jess',
-        phase: 'start',
-        modalCards: false,
-        score: 0,
-        statut: 'wait',
-        isYou: false,
-        isKing: false,
-        cards: [
-          {
-            id: 1,
-            desc: 'Le slip de Jean-Pierre',
-            type: 'answer',
-            isSelected: false,
-            isPlayed: false,
-          },
-          {
-            id: 2,
-            desc: 'Le slip de Jean-Pierre2',
-            type: 'answer',
-            isSelected: false,
-            isPlayed: false,
-          },
-          {
-            id: 3,
-            desc: 'Le slip de Jean-Pierre3',
-            type: 'answer',
-            isSelected: false,
-            isPlayed: false,
-          },
-          {
-            id: 4,
-            desc: 'Le slip de Jean-Pierre4',
-            type: 'answer',
-            isSelected: false,
-            isPlayed: false,
-          },
-          {
-            id: 5,
-            desc: 'Le slip de Jean-Pierre5',
-            type: 'answer',
-            isSelected: false,
-            isPlayed: false,
-          },
-        ],
-      },
-      {
-        id: 3,
-        name: 'Fred',
-        phase: 'start',
-        modalCards: false,
-        score: 0,
-        statut: 'wait',
-        isYou: false,
-        isKing: true,
-        cards: [
-          {
-            id: 1,
-            desc: 'Le slip de Jean-Pierre',
-            type: 'answer',
-            isSelected: false,
-            isPlayed: false,
-          },
-          {
-            id: 2,
-            desc: 'Le slip de Jean-Pierre2',
-            type: 'answer',
-            isSelected: false,
-            isPlayed: false,
-          },
-          {
-            id: 3,
-            desc: 'Le slip de Jean-Pierre3',
-            type: 'answer',
-            isSelected: false,
-            isPlayed: false,
-          },
-          {
-            id: 4,
-            desc: 'Le slip de Jean-Pierre4',
-            type: 'answer',
-            isSelected: false,
-            isPlayed: false,
-          },
-          {
-            id: 5,
-            desc: 'Le slip de Jean-Pierre5',
-            type: 'answer',
-            isSelected: false,
-            isPlayed: false,
-          },
-        ],
-      },
-    ],
+    lobby: {
+      gameStarted: false,
+      users: [
+        {
+          id: 1,
+          name: 'John',
+        },
+        {
+          id: 2,
+          name: 'Vanessa',
+        },
+      ],
+    },
+    users: [],
     currentQuestion: {
       id: 1,
       desc: '____ a mangé un burger aux fraises',
@@ -198,8 +34,78 @@ const GameState = (props) => {
       type: 'question',
     },
     questionsDeck: [],
-    answersDeck: [],
-    numPlayers: 3,
+    answersDeck: [
+      {
+        id: 1,
+        desc: 'Le slip de Jean-Pierre',
+        type: 'answer',
+        isSelected: false,
+        isPlayed: false,
+      },
+      {
+        id: 2,
+        desc: 'Le slip de Jean-Pierre2',
+        type: 'answer',
+        isSelected: false,
+        isPlayed: false,
+      },
+      {
+        id: 3,
+        desc: 'Le slip de Jean-Pierre3',
+        type: 'answer',
+        isSelected: false,
+        isPlayed: false,
+      },
+      {
+        id: 4,
+        desc: 'Le slip de Jean-Pierre4',
+        type: 'answer',
+        isSelected: false,
+        isPlayed: false,
+      },
+      {
+        id: 5,
+        desc: 'Le slip de Jean-Pierre5',
+        type: 'answer',
+        isSelected: false,
+        isPlayed: false,
+      },
+      {
+        id: 6,
+        desc: 'Le slip de Jean-Pierre5',
+        type: 'answer',
+        isSelected: false,
+        isPlayed: false,
+      },
+      {
+        id: 7,
+        desc: 'Le slip de Jean-Pierre5',
+        type: 'answer',
+        isSelected: false,
+        isPlayed: false,
+      },
+      {
+        id: 8,
+        desc: 'Le slip de Jean-Pierre5',
+        type: 'answer',
+        isSelected: false,
+        isPlayed: false,
+      },
+      {
+        id: 9,
+        desc: 'Le slip de Jean-Pierre5',
+        type: 'answer',
+        isSelected: false,
+        isPlayed: false,
+      },
+      {
+        id: 10,
+        desc: 'Le slip de Jean-Pierre5',
+        type: 'answer',
+        isSelected: false,
+        isPlayed: false,
+      },
+    ],
   }
 
   const [state, dispatch] = useReducer(gameReducer, initialState)
@@ -209,10 +115,8 @@ const GameState = (props) => {
     socket = io('http://localhost:5000')
     socket.on('connect', () => {
       // connexion
-      socket.on('game:join', (serverState) => {
-        console.log('Connexion: ', serverState)
-
-        // dispatch({ type: SET_NEW_PLAYER, payload: state })
+      socket.on('game:join', (serverState, newId) => {
+        console.log('Connexion: ', serverState, newId)
       })
 
       // Update (update game / deconnexion)
@@ -221,6 +125,22 @@ const GameState = (props) => {
       })
     })
   }
+
+  /* const setNewPlayer = () => {
+    //TODO: get name field
+    const newUser = {
+      id: newId,
+      name: 'John',
+      phase: 'start',
+      modalCards: false,
+      score: 0,
+      isYou: false,
+      isKing: false,
+      cards: [],
+    }
+
+    dispatch({ type: SET_NEW_PLAYER, payload: newUser })
+  } */
 
   // Change phase
   const setPhase = (phase) => {
@@ -244,7 +164,6 @@ const GameState = (props) => {
         currentQuestion: state.currentQuestion,
         questionsDeck: state.questionsDeck,
         answersDeck: state.answersDeck,
-        numPlayers: state.numPlayers,
         initSocketConnection,
         setPhase,
         showModalCards,

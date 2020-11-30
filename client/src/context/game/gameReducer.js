@@ -1,5 +1,4 @@
 import {
-  INIT_SOCKET_CONNECT,
   SET_NEW_PLAYER,
   SET_PHASE,
   SHOW_MODAL_CARDS,
@@ -8,10 +7,8 @@ import {
 
 const contactReducer = (state, action) => {
   switch (action.type) {
-    case INIT_SOCKET_CONNECT:
-      return state
     case SET_NEW_PLAYER:
-      return state
+      return { ...state, users: [action.payload, ...state.users] }
     case SET_PHASE:
       return {
         ...state,

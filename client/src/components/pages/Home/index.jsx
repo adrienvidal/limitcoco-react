@@ -12,9 +12,9 @@ function Home() {
 
   return (
     <div className={style.main}>
-      {users.find((user) => user.isYou).phase === 'start' && <Start />}
-      {users.find((user) => user.isYou).phase.indexOf('game') > -1 && <Game />}
-      <Game />
+      {users.length === 0 && <Start />}
+      {users.length > 0 && <Game />}
+      {/* {users.find((user) => user.isYou).phase.indexOf('game') > -1 && <Game />} */}
     </div>
   )
 }

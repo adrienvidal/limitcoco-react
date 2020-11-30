@@ -13,9 +13,9 @@ const Game = () => {
 
   return (
     <div className={style.main}>
-      {users.find((user) => user.isYou).modalCards && <ModalCards />}
+      {/* {users.find((user) => user.isYou).modalCards && <ModalCards />}
       <Board />
-      <Sidebar />
+      <Sidebar /> */}
     </div>
   )
 }

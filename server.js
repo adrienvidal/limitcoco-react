@@ -19,7 +19,7 @@ io.on('connection', (socket) => {
   // join room & add new user players
   socket.join(defaultRoom)
   serverState.users.push(socket.id)
-  io.to(defaultRoom).emit('game:join', serverState)
+  io.to(defaultRoom).emit('game:join', serverState, socket.id)
   console.log('A user is connected', socket.id)
 
   socket.on('disconnect', () => {

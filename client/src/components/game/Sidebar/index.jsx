@@ -27,7 +27,7 @@ const Sidebar = () => {
                     Score: <span>{user.score}</span>
                   </li>
                   <li>
-                    Statut: <span>{user.statut}</span>
+                    Phase: <span>{user.phase}</span>
                   </li>
                 </ul>
               </div>
