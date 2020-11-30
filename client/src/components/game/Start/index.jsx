@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import style from './index.module.scss'
 import logo from '../../../assets/images/logo.jpg'
 import { Button1 } from '../../common/Buttons'
@@ -10,8 +10,13 @@ const Start = () => {
   const gameContext = useContext(GameContext)
   const { setLobby } = gameContext
 
-  const onAction = () => {
-    setLobby('Jess')
+  const [name, setName] = useState('')
+
+  const onChange = (e) => setName(e.target.value)
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+    setLobby(name)
     // setPhase('game-init')
   }
 
@@ -19,9 +24,18 @@ const Start = () => {
     <div className={style.main}>
       <div className={style.inner}>
         <img src={logo} alt='logo' />
-        <div className={style.cta}>
-          <Button1 onAction={onAction} text={'Start'} />
-        </div>
+        <form onSubmit={onSubmit}>
+          <input
+            type='text'
+            placeholder='Name'
+            name='name'
+            value={name}
+            onChange={onChange}
+          />
+          <div className={style.cta}>
+            <Button1 text={'Start'} />
+          </div>
+        </form>
       </div>
     </div>
   )

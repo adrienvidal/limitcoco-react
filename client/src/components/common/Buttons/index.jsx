@@ -3,7 +3,10 @@ import style from './index.module.scss'
 
 export const Button1 = ({ text, onAction }) => {
   return (
-    <button className={style.main} onClick={() => onAction()}>
+    <button
+      className={style.main}
+      onClick={() => (onAction ? onAction() : null)}
+    >
       {text}
     </button>
   )
