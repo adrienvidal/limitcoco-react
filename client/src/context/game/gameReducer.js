@@ -1,62 +1,25 @@
-import {
-  UPDATE_CLIENT_STATE,
-  SET_LOBBY,
-  SET_NEW_PLAYER,
-  SET_PHASE,
-  SHOW_MODAL_CARDS,
-  SELECT_CARDS,
-} from '../types'
-
 const gameReducer = (state, action) => {
   switch (action.type) {
-    case UPDATE_CLIENT_STATE:
-      return action.payload || state
-    case SET_LOBBY:
-      const newUser = {
-        id: action.payload.newId,
-        name: action.payload.name,
-      }
+
+    case "SET_GAME_STATE":
       return {
         ...state,
-        lobby: [newUser, ...state.lobby],
+        game: action.payload,
       }
-    case SET_NEW_PLAYER:
-      return { ...state, users: [action.payload, ...state.users] }
-    case SET_PHASE:
+    case "SET_ROOM_STATE":
       return {
         ...state,
-        users: state.users.map((user) =>
-          user.isYou ? { ...user, phase: action.payload } : user
-        ),
+        room: action.payload,
       }
-    case SHOW_MODAL_CARDS:
+    case "SET_USER_ID":
       return {
         ...state,
-        users: state.users.map((user) =>
-          user.isYou ? { ...user, modalCards: action.payload } : user
-        ),
+        userId: action.payload,
       }
-    case SELECT_CARDS:
-      return {
-        ...state,
-        users: state.users.map((user) =>
-          user.id === action.payload.userId
-            ? {
-                ...user,
-                cards: user.cards.map((card) =>
-                  card.id === action.payload.cardId
-                    ? { ...card, isSelected: !card.isSelected }
-                    : card
-                ),
-              }
-            : user
-        ),
-      }
+
     default:
       return state
   }
 }
-
-// state.users[indexUser] : true
 
 export default gameReducer

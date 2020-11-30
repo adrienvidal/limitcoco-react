@@ -9,7 +9,11 @@ import GameContext from '../../../context/game/gameContext'
 
 const Game = () => {
   const gameContext = useContext(GameContext)
-  const { users } = gameContext
+  const { joinGame } = gameContext
+
+  useEffect(() => {
+    joinGame();
+  }, [])
 
   return (
     <div className={style.main}>
