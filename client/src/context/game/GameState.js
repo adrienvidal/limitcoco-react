@@ -2,7 +2,7 @@ import React, { useReducer } from 'react'
 import GameContext from './gameContext'
 import gameReducer from './gameReducer'
 import {
-  INIT_SOCKET_CONNECT,
+  SET_LOBBY,
   SET_NEW_PLAYER,
   SET_PHASE,
   SHOW_MODAL_CARDS,
@@ -13,19 +13,17 @@ import io from 'socket.io-client'
 const GameState = (props) => {
   var socket = null
   const initialState = {
-    lobby: {
-      gameStarted: false,
-      users: [
-        {
-          id: 1,
-          name: 'John',
-        },
-        {
-          id: 2,
-          name: 'Vanessa',
-        },
-      ],
-    },
+    gameStarted: false,
+    lobby: [
+      {
+        id: 1,
+        name: 'John',
+      },
+      {
+        id: 2,
+        name: 'Vanessa',
+      },
+    ],
     users: [],
     currentQuestion: {
       id: 1,
@@ -110,13 +108,14 @@ const GameState = (props) => {
 
   const [state, dispatch] = useReducer(gameReducer, initialState)
 
-  //Init New User
-  const initSocketConnection = () => {
+  //Set Lobby
+  const setLobby = (name) => {
     socket = io('http://localhost:5000')
     socket.on('connect', () => {
       // connexion
       socket.on('game:join', (serverState, newId) => {
         console.log('Connexion: ', serverState, newId)
+        dispatch({ type: SET_LOBBY, payload: { name, newId } })
       })
 
       // Update (update game / deconnexion)
@@ -164,7 +163,7 @@ const GameState = (props) => {
         currentQuestion: state.currentQuestion,
         questionsDeck: state.questionsDeck,
         answersDeck: state.answersDeck,
-        initSocketConnection,
+        setLobby,
         setPhase,
         showModalCards,
         selectCard,

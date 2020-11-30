@@ -8,10 +8,10 @@ import GameContext from '../../../context/game/gameContext'
 
 const Start = () => {
   const gameContext = useContext(GameContext)
-  const { initSocketConnection, setPhase } = gameContext
+  const { setLobby } = gameContext
 
   const onAction = () => {
-    initSocketConnection()
+    setLobby('Jess')
     // setPhase('game-init')
   }
 

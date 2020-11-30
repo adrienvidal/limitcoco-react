@@ -1,4 +1,5 @@
 import {
+  SET_LOBBY,
   SET_NEW_PLAYER,
   SET_PHASE,
   SHOW_MODAL_CARDS,
@@ -7,6 +8,15 @@ import {
 
 const contactReducer = (state, action) => {
   switch (action.type) {
+    case SET_LOBBY:
+      const newUser = {
+        id: action.payload.newId,
+        name: action.payload.name,
+      }
+      return {
+        ...state,
+        lobby: [newUser, ...state.lobby],
+      }
     case SET_NEW_PLAYER:
       return { ...state, users: [action.payload, ...state.users] }
     case SET_PHASE:
