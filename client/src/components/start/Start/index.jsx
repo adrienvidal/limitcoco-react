@@ -10,7 +10,7 @@ const Start = () => {
   const gameContext = useContext(GameContext)
   const { setLobby } = gameContext
 
-  const [name, setName] = useState('')
+  const [name, setName] = useState('PetitZizi')
 
   const onChange = (e) => setName(e.target.value)
 

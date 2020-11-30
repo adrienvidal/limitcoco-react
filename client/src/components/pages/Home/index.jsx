@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import style from './index.module.scss'
-import Start from '../../game/Start'
+import Start from '../../start/Start'
 import Game from '../../game/Game'
 
 // context
