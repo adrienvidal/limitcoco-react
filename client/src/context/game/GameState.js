@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react'
+import React, { useReducer } from 'react'
 import GameContext from './gameContext'
 import gameReducer from './gameReducer'
 import {
@@ -13,12 +13,12 @@ import io from 'socket.io-client'
 const GameState = (props) => {
   var socket = null
   const initialState = {
-    // phase |start|game|winner
-    phase: 'start',
     users: [
       {
         id: 1,
         name: 'John',
+        phase: 'start',
+        modalCards: false,
         score: 0,
         statut: 'wait',
         isYou: true,
@@ -99,6 +99,8 @@ const GameState = (props) => {
       {
         id: 2,
         name: 'Jess',
+        phase: 'start',
+        modalCards: false,
         score: 0,
         statut: 'wait',
         isYou: false,
@@ -144,6 +146,8 @@ const GameState = (props) => {
       {
         id: 3,
         name: 'Fred',
+        phase: 'start',
+        modalCards: false,
         score: 0,
         statut: 'wait',
         isYou: false,
@@ -196,7 +200,6 @@ const GameState = (props) => {
     questionsDeck: [],
     answersDeck: [],
     numPlayers: 3,
-    modalCards: false,
   }
 
   const [state, dispatch] = useReducer(gameReducer, initialState)
@@ -212,31 +215,11 @@ const GameState = (props) => {
         // dispatch({ type: SET_NEW_PLAYER, payload: state })
       })
 
-      // Update
-      socket.on('game:update', (serverState) => {
-        console.log('Update: ', serverState)
+      // Update (update game / deconnexion)
+      socket.on('game:update', (newState) => {
+        console.log('Update: ', newState)
       })
-
-      /* socket.on('game:join', (playerId) => {
-        state.players.push(playerId)
-        dispatch({ type: SET_NEW_PLAYER, payload: state })
-        console.log(state)
-      })
-      socket.on('game:update', state, () => {
-        dispatch({ type: INIT_SOCKET_CONNECT, payload: state })
-      }) */
-
-      // state.players.push(socket.id)
-
-      /* socket.emit('game:update', state, () => {
-        dispatch({ type: INIT_SOCKET_CONNECT, payload: state })
-      }) */
     })
-
-    // socket.on('game:update', (newState) => {
-    //   console.log('game:update', newState)
-    //   dispatch({ type: INIT_SOCKET_CONNECT, payload: newState })
-    // })
   }
 
   // Change phase
@@ -257,13 +240,11 @@ const GameState = (props) => {
   return (
     <GameContext.Provider
       value={{
-        phase: state.phase,
         users: state.users,
         currentQuestion: state.currentQuestion,
         questionsDeck: state.questionsDeck,
         answersDeck: state.answersDeck,
         numPlayers: state.numPlayers,
-        modalCards: state.modalCards,
         initSocketConnection,
         setPhase,
         showModalCards,

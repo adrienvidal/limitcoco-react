@@ -8,12 +8,12 @@ import GameContext from '../../../context/game/gameContext'
 
 function Home() {
   const gameContext = useContext(GameContext)
-  const { phase } = gameContext
+  const { users } = gameContext
 
   return (
     <div className={style.main}>
-      {phase === 'start' && <Start />}
-      {phase.indexOf('game') > -1 && <Game />}
+      {users.find((user) => user.isYou).phase === 'start' && <Start />}
+      {users.find((user) => user.isYou).phase.indexOf('game') > -1 && <Game />}
       <Game />
     </div>
   )

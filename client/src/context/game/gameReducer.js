@@ -9,32 +9,22 @@ import {
 const contactReducer = (state, action) => {
   switch (action.type) {
     case INIT_SOCKET_CONNECT:
-      return { ...action.payload }
+      return state
     case SET_NEW_PLAYER:
-      // todo: isYou: true
-      const newPlayer = {
-        id: action.payload,
-        name: 'John',
-        score: 0,
-        statut: 'wait',
-        isYou: false,
-        isKing: false,
-        cards: null,
-      }
-
-      return {
-        ...state,
-        players: [...state.players, newPlayer],
-      }
+      return state
     case SET_PHASE:
       return {
         ...state,
-        phase: action.payload,
+        users: state.users.map((user) =>
+          user.isYou ? { ...user, phase: action.payload } : user
+        ),
       }
     case SHOW_MODAL_CARDS:
       return {
         ...state,
-        modalCards: action.payload,
+        users: state.users.map((user) =>
+          user.isYou ? { ...user, modalCards: action.payload } : user
+        ),
       }
     case SELECT_CARDS:
       return {

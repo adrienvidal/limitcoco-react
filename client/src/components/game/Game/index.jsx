@@ -9,11 +9,11 @@ import GameContext from '../../../context/game/gameContext'
 
 const Game = () => {
   const gameContext = useContext(GameContext)
-  const { modalCards } = gameContext
+  const { users } = gameContext
 
   return (
     <div className={style.main}>
-      {modalCards && <ModalCards />}
+      {users.find((user) => user.isYou).modalCards && <ModalCards />}
       <Board />
       <Sidebar />
     </div>
