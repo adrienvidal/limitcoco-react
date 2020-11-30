@@ -2,6 +2,7 @@ import React, { useReducer } from 'react'
 import GameContext from './gameContext'
 import gameReducer from './gameReducer'
 import {
+  UPDATE_CLIENT_STATE,
   SET_LOBBY,
   SET_NEW_PLAYER,
   SET_PHASE,
@@ -14,16 +15,7 @@ const GameState = (props) => {
   var socket = null
   const initialState = {
     gameStarted: false,
-    lobby: [
-      {
-        id: 1,
-        name: 'John',
-      },
-      {
-        id: 2,
-        name: 'Vanessa',
-      },
-    ],
+    lobby: [],
     users: [],
     currentQuestion: {
       id: 1,
@@ -113,20 +105,34 @@ const GameState = (props) => {
     socket = io('http://localhost:5000')
     socket.on('connect', () => {
       // connexion
-      socket.on('game:join', (serverState, newId) => {
-        console.log('Connexion: ', serverState, newId)
+      socket.on('game:join', (newId, serverState) => {
+        console.log('Connexion: ', newId, serverState)
+        updateClientState(serverState)
         dispatch({ type: SET_LOBBY, payload: { name, newId } })
+
+        // TODO: callback on dispatch
+        updateServerState(state)
       })
 
       // Update (update game / deconnexion)
-      socket.on('game:update', (newState) => {
-        console.log('Update: ', newState)
+      socket.on('game:update', (serverState) => {
+        console.log('Update: ', serverState)
+        updateClientState(serverState)
       })
     })
   }
 
+  // Update Client state
+  const updateClientState = (serverState) => {
+    dispatch({ type: UPDATE_CLIENT_STATE, payload: serverState })
+  }
+
+  // Update Server state
+  const updateServerState = (clientState) => {
+    socket.emit('game:update', clientState)
+  }
+
   /* const setNewPlayer = () => {
-    //TODO: get name field
     const newUser = {
       id: newId,
       name: 'John',
@@ -159,6 +165,8 @@ const GameState = (props) => {
   return (
     <GameContext.Provider
       value={{
+        gameStarted: state.gameStarted,
+        lobby: state.lobby,
         users: state.users,
         currentQuestion: state.currentQuestion,
         questionsDeck: state.questionsDeck,

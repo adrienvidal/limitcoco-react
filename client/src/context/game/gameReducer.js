@@ -1,4 +1,5 @@
 import {
+  UPDATE_CLIENT_STATE,
   SET_LOBBY,
   SET_NEW_PLAYER,
   SET_PHASE,
@@ -6,8 +7,10 @@ import {
   SELECT_CARDS,
 } from '../types'
 
-const contactReducer = (state, action) => {
+const gameReducer = (state, action) => {
   switch (action.type) {
+    case UPDATE_CLIENT_STATE:
+      return action.payload || state
     case SET_LOBBY:
       const newUser = {
         id: action.payload.newId,
@@ -56,4 +59,4 @@ const contactReducer = (state, action) => {
 
 // state.users[indexUser] : true
 
-export default contactReducer
+export default gameReducer

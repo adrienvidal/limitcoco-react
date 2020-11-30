@@ -10,13 +10,13 @@ const Start = () => {
   const gameContext = useContext(GameContext)
   const { setLobby } = gameContext
 
-  const [name, setName] = useState('PetitZizi')
+  const [name, setName] = useState('')
 
   const onChange = (e) => setName(e.target.value)
 
   const onSubmit = (e) => {
     e.preventDefault()
-    setLobby(name)
+    setLobby(name.length !== 0 ? name : 'PetitZizi')
     // setPhase('game-init')
   }
 
