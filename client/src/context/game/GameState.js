@@ -11,10 +11,10 @@ import {
 import io from 'socket.io-client'
 
 const GameState = (props) => {
+  var socket = null
   const initialState = {
     // phase |start|game|winner
     phase: 'start',
-    players: [],
     users: [
       {
         id: 1,
@@ -203,17 +203,18 @@ const GameState = (props) => {
 
   //Init New User
   const initSocketConnection = () => {
-    const socket = io('http://localhost:5000')
+    socket = io('http://localhost:5000')
     socket.on('connect', () => {
+      // connexion
       socket.on('game:join', (serverState) => {
         console.log('Connexion: ', serverState)
 
-        // state.players.push(playerId)
         // dispatch({ type: SET_NEW_PLAYER, payload: state })
       })
 
+      // Update
       socket.on('game:update', (serverState) => {
-        console.log('Deconnexion: ', serverState)
+        console.log('Update: ', serverState)
       })
 
       /* socket.on('game:join', (playerId) => {

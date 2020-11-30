@@ -10,34 +10,26 @@ const io = require('socket.io')(server, {
 
 // config game
 const defaultRoom = 'game-001'
-var players = []
+const serverState = {
+  users: [],
+  gameState: null,
+}
 
 io.on('connection', (socket) => {
   // join room & add new user players
   socket.join(defaultRoom)
-  players.push(socket.id)
-  io.to(defaultRoom).emit('game:join', players)
+  serverState.users.push(socket.id)
+  io.to(defaultRoom).emit('game:join', serverState)
   console.log('A user is connected', socket.id)
 
   socket.on('disconnect', () => {
     // remove id from room
-    players = players.filter((id) => id !== socket.id)
-    io.to(defaultRoom).emit('game:update', players)
+    serverState.users = serverState.users.filter((id) => id !== socket.id)
+    io.to(defaultRoom).emit('game:update', serverState)
     console.log('A user is disconnected', socket.id)
   })
 
-  /*  socket.on("disconnect", () => {
-    console.log("User disconnected", socket.id);
-    state.room.users = state.players.filter(id => id !== socket.id);
-    socket.to(defaultRoom).emit("room:update", state.room);
-  }); */
-
-  /* socket.join(defaultRoom, () => {
-    //state.players.push(socket.id)
-    console.log(`${socket.id} is joining`)
-    io.to(defaultRoom).emit('game:join', socket.id)
-  })
-
+  /*
   socket.on('game:update', (newGameState, cb) => {
     console.log(socket.id, 'game:update', newGameState)
     state.game = newGameState
