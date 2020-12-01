@@ -3,13 +3,14 @@ import Board from '../Board'
 import Sidebar from '../Sidebar'
 import ModalCards from '../ModalCards'
 import style from './index.module.scss'
+import { Button1 } from '../../common/Buttons'
 
 // context
 import GameContext from '../../../context/game/gameContext'
 
 const Game = () => {
   const gameContext = useContext(GameContext)
-  const { joinGame } = gameContext
+  const { joinGame, resetGame, state } = gameContext
 
   useEffect(() => {
     joinGame();
@@ -20,6 +21,12 @@ const Game = () => {
       {/* {users.find((user) => user.isYou).modalCards && <ModalCards />}
       <Board />
       <Sidebar /> */}
+
+      <div className="wrapper">
+        <button onClick={() => resetGame(state)}>
+          Reset game
+        </button>
+      </div>
     </div>
   )
 }

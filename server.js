@@ -21,27 +21,28 @@ io.on('connection', (socket) => {
   // join room & add new user players
   socket.join(defaultRoom)
   state.room.users.push(socket.id);
-  io.to(defaultRoom).emit("room:update", state.room);
+  io.to(defaultRoom).emit("client:room:update", state.room);
   console.log('A user is connected', socket.id)
   console.log('state: ', state)
 
   socket.on("disconnect", () => {
     console.log("User disconnected", socket.id);
     state.room.users = state.room.users.filter(id => id !== socket.id);
-    socket.to(defaultRoom).emit("room:update", state.room);
+    socket.to(defaultRoom).emit("client:room:update", state.room);
   });
 
-  socket.on("game:join", callback => {
-    console.log(socket.id, "game:join");
+  socket.on("server:game:join", callback => {
+    console.log(socket.id, "server:game:join");
     callback(state.game);
   });
 
-  socket.on('game:update', (clientState) => {
-    console.log('serverState-update: ', clientState)
-    serverState = clientState
+  socket.on("server:game:update", (newGameState, callback) => {
+    console.log(socket.id, "server:game:update", newGameState);
+    state.game = newGameState;
     // propagate the update to everyone in the room
-    socket.to(defaultRoom).emit('game:update', serverState)
-  })
+    socket.to(defaultRoom).emit("client:game:update", newGameState);
+    callback();
+  });
 })
 
 // start server

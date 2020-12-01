@@ -1,6 +1,7 @@
 const gameReducer = (state, action) => {
+  
+  console.log(action)
   switch (action.type) {
-
     case "SET_GAME_STATE":
       return {
         ...state,

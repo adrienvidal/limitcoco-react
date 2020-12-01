@@ -2,6 +2,7 @@ import React, { useReducer } from 'react'
 import GameContext from './gameContext'
 import gameReducer from './gameReducer'
 import io from 'socket.io-client'
+import {createNewGame} from '../../gameManager'
 
 const initialState = {
   gameState: null,
@@ -16,23 +17,36 @@ const GameState = (props) => {
   const [state, dispatch] = useReducer(gameReducer, initialState)
 
   socket.on("connect", () => {
-    dispatch("SET_USER_ID", { payload: socket.id });
-  });
-
-  socket.on("game:update", newState => {
-    dispatch("SET_GAME_STATE", { payload: newState });
-  });
-
-  socket.on("room:update", newRoom => {
-    dispatch("SET_ROOM_STATE", { payload: newRoom });
+    dispatch({ type: "SET_USER_ID", payload: socket.id });
+    
+    socket.on("client:game:update", newState => {
+      console.log("client game update");
+      dispatch({type: "SET_GAME_STATE", payload: newState });
+    });
+  
+    socket.on("client:room:update", newRoom => {
+      dispatch({type: "SET_ROOM_STATE", payload: newRoom });
+    });
   });
 
   /** Fetch the current game state from the server */
   const joinGame = () => {
     return new Promise(resolve => {
-      socket.emit("game:join", gameState => {
-        dispatch("SET_GAME_STATE", gameState);
+      socket.emit("server:game:join", gameState => {
+        dispatch({type: "SET_GAME_STATE", payload: gameState});
         resolve(gameState);
+      });
+    });
+  }
+
+  const resetGame = (state) => {
+    const playerIds = state.room.users;
+    const newGame = createNewGame(playerIds);
+
+    return new Promise(resolve => {
+      socket.emit("server:game:update", newGame, () => {
+        dispatch({type: "SET_GAME_STATE", payload: newGame});
+        resolve(newGame);
       });
     });
   }
@@ -41,7 +55,8 @@ const GameState = (props) => {
     <GameContext.Provider
       value={{
         state,
-        joinGame
+        joinGame,
+        resetGame
       }}
     >
       {props.children}
