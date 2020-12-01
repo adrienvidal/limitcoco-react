@@ -27,6 +27,9 @@ const Game = () => {
           Reset game
         </button>
       </div>
+      <code>
+        <pre>{JSON.stringify(state.game, null, 2)}</pre>
+      </code>
     </div>
   )
 }
