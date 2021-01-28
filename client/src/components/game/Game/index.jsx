@@ -13,19 +13,17 @@ const Game = () => {
   const { joinGame, resetGame, state } = gameContext
 
   useEffect(() => {
-    joinGame();
+    joinGame()
   }, [])
 
   return (
     <div className={style.main}>
       {/* {users.find((user) => user.isYou).modalCards && <ModalCards />}
-      <Board />
+      <Board />s
       <Sidebar /> */}
 
-      <div className="wrapper">
-        <button onClick={() => resetGame(state)}>
-          Reset game
-        </button>
+      <div className='wrapper'>
+        <button onClick={() => resetGame(state)}>Reset game</button>
       </div>
       <code>
         <pre>{JSON.stringify(state.game, null, 2)}</pre>

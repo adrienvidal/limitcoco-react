@@ -1,5 +1,4 @@
-import Game from './components/game/Game'
-
+import Home from './components/Home'
 
 // context
 import GameState from './context/game/GameState'
@@ -8,7 +7,7 @@ function App() {
   return (
     <GameState>
       <main>
-        <Game />
+        <Home />
       </main>
     </GameState>
   )
