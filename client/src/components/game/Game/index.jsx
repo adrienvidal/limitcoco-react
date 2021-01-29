@@ -18,16 +18,10 @@ const Game = () => {
 
   return (
     <div className={style.main}>
+      <h1>Game</h1>
       {/* {users.find((user) => user.isYou).modalCards && <ModalCards />}
-      <Board />s
+      <Board />
       <Sidebar /> */}
-
-      <div className='wrapper'>
-        <button onClick={() => resetGame(state)}>Reset game</button>
-      </div>
-      <code>
-        <pre>{JSON.stringify(state.game, null, 2)}</pre>
-      </code>
     </div>
   )
 }
