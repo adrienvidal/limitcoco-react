@@ -1,21 +1,20 @@
 const gameReducer = (state, action) => {
-  
-  console.log(action)
+  console.log('gameReducer', action)
   switch (action.type) {
-    case "SET_GAME_STATE":
+    case 'SET_USER_ID':
       return {
         ...state,
-        game: action.payload,
+        userId: action.payload,
       }
-    case "SET_ROOM_STATE":
+    case 'SET_ROOM_STATE':
       return {
         ...state,
         room: action.payload,
       }
-    case "SET_USER_ID":
+    case 'SET_GAME_STATE':
       return {
         ...state,
-        userId: action.payload,
+        game: action.payload,
       }
 
     default:

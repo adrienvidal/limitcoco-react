@@ -8,9 +8,11 @@ const Lobby = () => {
   const gameContext = useContext(GameContext)
   const { joinGame, resetGame, state } = gameContext
 
-  useEffect(() => {
+  console.log('state: ', state)
+
+  /* useEffect(() => {
     joinGame()
-  }, [])
+  }, []) */
 
   return (
     <div className={style.main}>

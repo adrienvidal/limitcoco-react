@@ -16,16 +16,19 @@ const GameState = (props) => {
   const [state, dispatch] = useReducer(gameReducer, initialState)
 
   socket.on('connect', () => {
+    // user id
     dispatch({ type: 'SET_USER_ID', payload: socket.id })
 
-    socket.on('client:game:update', (newState) => {
-      console.log('client game update')
-      dispatch({ type: 'SET_GAME_STATE', payload: newState })
-    })
-
+    // room
     socket.on('client:room:update', (newRoom) => {
       dispatch({ type: 'SET_ROOM_STATE', payload: newRoom })
     })
+
+    // game
+    /* socket.on('client:game:update', (newState) => {
+      console.log('client game update')
+      dispatch({ type: 'SET_GAME_STATE', payload: newState })
+    }) */
   })
 
   /** Fetch the current game state from the server */
