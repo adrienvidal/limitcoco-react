@@ -10,9 +10,9 @@ const Lobby = () => {
 
   console.log('state: ', state)
 
-  /* useEffect(() => {
+  useEffect(() => {
     joinGame()
-  }, []) */
+  }, [])
 
   return (
     <div className={style.main}>

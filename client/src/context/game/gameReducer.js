@@ -1,5 +1,5 @@
 const gameReducer = (state, action) => {
-  console.log('gameReducer', action)
+  // console.log('gameReducer', action)
   switch (action.type) {
     case 'SET_USER_ID':
       return {

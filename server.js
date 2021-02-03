@@ -20,7 +20,7 @@ const state = {
 io.on('connection', (socket) => {
   // join room & add new user players
 
-  // room init
+  // room update
   socket.join(defaultRoom)
   state.room.users.push(socket.id)
   io.to(defaultRoom).emit('client:room:update', state.room)
@@ -31,15 +31,19 @@ io.on('connection', (socket) => {
   // disconnect
   socket.on('disconnect', () => {
     console.log('User disconnected', socket.id)
+
+    // room update
     state.room.users = state.room.users.filter((id) => id !== socket.id)
     socket.to(defaultRoom).emit('client:room:update', state.room)
   })
 
+  // join game
   socket.on('server:game:join', (callback) => {
     console.log(socket.id, 'server:game:join')
     callback(state.game)
   })
 
+  // game update
   socket.on('server:game:update', (newGameState, callback) => {
     console.log(socket.id, 'server:game:update', newGameState)
     state.game = newGameState

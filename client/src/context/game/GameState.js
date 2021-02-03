@@ -5,7 +5,7 @@ import io from 'socket.io-client'
 import { createNewGame } from '../../gameManager'
 
 const initialState = {
-  gameState: null,
+  game: null,
   room: null,
   userId: null,
 }
@@ -24,23 +24,24 @@ const GameState = (props) => {
       dispatch({ type: 'SET_ROOM_STATE', payload: newRoom })
     })
 
-    // game
-    /* socket.on('client:game:update', (newState) => {
+    // server gameState listener
+    socket.on('client:game:update', (newState) => {
       console.log('client game update')
       dispatch({ type: 'SET_GAME_STATE', payload: newState })
-    }) */
+    })
   })
 
   /** Fetch the current game state from the server */
   const joinGame = () => {
     return new Promise((resolve) => {
-      socket.emit('server:game:join', (gameState) => {
-        dispatch({ type: 'SET_GAME_STATE', payload: gameState })
-        resolve(gameState)
+      socket.emit('server:game:join', (stateGame) => {
+        dispatch({ type: 'SET_GAME_STATE', payload: stateGame })
+        resolve(stateGame)
       })
     })
   }
 
+  // Create newGame sate in front then
   const resetGame = (state) => {
     const playerIds = state.room.users
     const newGame = createNewGame(playerIds)
