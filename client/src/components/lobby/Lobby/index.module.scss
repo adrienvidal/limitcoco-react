@@ -1,4 +1,16 @@
 @import '../../../assets/styles/common/common';
 
 .main {
+  background-color: $grey;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper {
+  background-color: $secondary;
+  width: 500px;
+  color: $white;
+  padding: 20px;
 }

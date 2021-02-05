@@ -16,14 +16,22 @@ const Lobby = () => {
 
   return (
     <div className={style.main}>
-      <h1>Lobby</h1>
+      <div className={style.wrapper}>
+        <h1>Lobby</h1>
 
-      <div className='wrapper'>
-        <button onClick={() => resetGame(state)}>Reset game</button>
+        {state.room &&
+          state.room.users.map((userId) => {
+            return <div key={userId}>{userId}</div>
+          })}
+
+        {state.room && state.room.users.length > 1 && (
+          <button onClick={() => resetGame(state)}>Start</button>
+        )}
       </div>
-      <code>
+
+      {/* <code>
         <pre>{JSON.stringify(state.game, null, 2)}</pre>
-      </code>
+      </code> */}
     </div>
   )
 }

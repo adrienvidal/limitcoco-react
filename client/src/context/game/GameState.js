@@ -31,7 +31,7 @@ const GameState = (props) => {
     })
   })
 
-  /** Fetch the current game state from the server */
+  /** Fetch the current game state from the server when new user*/
   const joinGame = () => {
     return new Promise((resolve) => {
       socket.emit('server:game:join', (stateGame) => {
@@ -41,7 +41,7 @@ const GameState = (props) => {
     })
   }
 
-  // Create newGame sate in front then
+  // Create newGame state in front
   const resetGame = (state) => {
     const playerIds = state.room.users
     const newGame = createNewGame(playerIds)
