@@ -10,15 +10,12 @@ import GameContext from '../../../context/game/gameContext'
 
 const Game = () => {
   const gameContext = useContext(GameContext)
-  const { joinGame, resetGame, state } = gameContext
-
-  useEffect(() => {
-    joinGame()
-  }, [])
+  const { resetGame, state } = gameContext
 
   return (
     <div className={style.main}>
       <h1>Game</h1>
+
       {/* {users.find((user) => user.isYou).modalCards && <ModalCards />}
       <Board />
       <Sidebar /> */}

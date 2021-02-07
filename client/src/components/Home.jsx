@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { Fragment, useContext } from 'react'
 import Game from './game/Game'
 import Lobby from './lobby/Lobby'
 
@@ -7,9 +7,23 @@ import GameContext from '../context/game/gameContext'
 
 const Home = () => {
   const gameContext = useContext(GameContext)
-  // const { users, showModalCards } = gameContext
+  const { state, resetGame } = gameContext
 
-  return <Lobby />
+  console.log('state: ', state)
+
+  return (
+    <Fragment>
+      {state.game ? (
+        <Fragment>
+          <button onClick={() => resetGame(state)}>Reset</button>
+          <Game />
+        </Fragment>
+      ) : (
+        <Lobby />
+      )}
+    </Fragment>
+  )
+  // return <Lobby />
 }
 
 export default Home

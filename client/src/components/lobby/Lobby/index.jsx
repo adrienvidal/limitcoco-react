@@ -8,8 +8,6 @@ const Lobby = () => {
   const gameContext = useContext(GameContext)
   const { joinGame, resetGame, state } = gameContext
 
-  console.log('state: ', state)
-
   useEffect(() => {
     joinGame()
   }, [])
