@@ -7,7 +7,8 @@ import GameContext from '../../../context/game/gameContext'
 
 const Sidebar = () => {
   const gameContext = useContext(GameContext)
-  const { users } = gameContext
+  const { state } = gameContext
+  const { game } = state
 
   return (
     <div className={style.main}>
@@ -17,17 +18,17 @@ const Sidebar = () => {
 
       <div className={style.players}>
         {/* player */}
-        {users &&
-          users.map((user) => {
+        {game.players &&
+          game.players.map((player) => {
             return (
-              <div key={user.id} className={style.player}>
+              <div key={player} className={style.player}>
                 <ul>
-                  <li className={style.name}>{user.name}</li>
+                  <li className={style.name}>{player}</li>
                   <li>
-                    Score: <span>{user.score}</span>
+                    Score: <span>0</span>
                   </li>
                   <li>
-                    Phase: <span>{user.phase}</span>
+                    Phase: <span>wait</span>
                   </li>
                 </ul>
               </div>
