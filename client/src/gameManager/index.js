@@ -3,6 +3,7 @@ import { shuffle, deepClone } from './utils'
 import { questionDeck, answerDeck } from './cards'
 
 export function createNewGame(playerIds) {
+  // Init Cards
   const answerCards = answerDeck.map((card) => ({
     id: uuidv4(),
     text: card.text,
@@ -17,14 +18,20 @@ export function createNewGame(playerIds) {
   let answers = shuffle(answerCards)
 
   const playerHands = {}
-
   playerIds.forEach((playerId) => {
     playerHands[playerId] = [answers.pop(), answers.pop(), answers.pop()]
+  })
+
+  // Init Scores
+  const scores = {}
+  playerIds.forEach((playerId) => {
+    scores[playerId] = 0
   })
 
   return {
     kingId: playerIds[0],
     players: playerIds,
+    scores: scores,
     hands: playerHands,
     question: questions[0],
   }

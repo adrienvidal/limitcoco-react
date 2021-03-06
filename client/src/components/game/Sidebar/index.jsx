@@ -25,7 +25,7 @@ const Sidebar = () => {
                 <ul>
                   <li className={style.name}>{player}</li>
                   <li>
-                    Score: <span>0</span>
+                    Score: <span>{game.scores[player]}</span>
                   </li>
                   <li>
                     Phase: <span>wait</span>

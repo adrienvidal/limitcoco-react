@@ -7,12 +7,13 @@ import AnswerBoard from '../AnswerBoard'
 const Board = () => {
   return (
     <div className={style.main}>
-      <div className={style.top}>
+      Board
+      {/* <div className={style.top}>
         <QuestionBoard />
       </div>
       <div className={style.bottom}>
         <AnswerBoard />
-      </div>
+      </div> */}
     </div>
   )
 }

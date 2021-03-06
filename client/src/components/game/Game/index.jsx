@@ -10,7 +10,7 @@ const Game = () => {
       <h1>Game</h1>
 
       {/* {users.find((user) => user.isYou).modalCards && <ModalCards />} */}
-      {/* <Board /> */}
+      <Board />
       <Sidebar />
     </div>
   )
