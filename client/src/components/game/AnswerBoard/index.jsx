@@ -7,9 +7,8 @@ import GameContext from '../../../context/game/gameContext'
 
 const AnswerBoard = () => {
   const gameContext = useContext(GameContext)
-  const { state } = gameContext
+  const { state, showModalHands } = gameContext
   const { game, userId } = state
-  // const { users, showModalCards } = gameContext
 
   // hand simulation
   const translateCard = 60
@@ -34,9 +33,9 @@ const AnswerBoard = () => {
               style={{
                 transform: 'translateX(-' + translateCard * index + 'px)',
               }}
-              /* onClick={() => {
-                showModalCards(true)
-              }} */
+              onClick={() => {
+                showModalHands(true)
+              }}
             >
               <AnswerCard card={card} />
             </div>

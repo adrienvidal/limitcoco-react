@@ -1,13 +1,20 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Board from '../Board'
 import Sidebar from '../Sidebar'
-import ModalCards from '../ModalCards'
+import ModalHands from '../ModalHands'
 import style from './index.module.scss'
 
+// context
+import GameContext from '../../../context/game/gameContext'
+
 const Game = () => {
+  const gameContext = useContext(GameContext)
+  const { state } = gameContext
+  const { game, userId } = state
+
   return (
     <div className={style.main}>
-      {/* {users.find((user) => user.isYou).modalCards && <ModalCards />} */}
+      {game.modalHands[userId] && <ModalHands />}
       <Board />
       <Sidebar />
     </div>

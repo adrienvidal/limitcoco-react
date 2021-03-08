@@ -11,6 +11,7 @@ export function createNewGame(playerIds) {
   const answerCards = answerDeck.map((card) => ({
     id: uuidv4(),
     text: card.text,
+    selection: 0, // 0 -> none | 1 -> selected | 2 -> validate
   }))
   const questionCards = questionDeck.map((card) => ({
     id: uuidv4(),
@@ -21,27 +22,30 @@ export function createNewGame(playerIds) {
   let questions = shuffle(questionCards)
   let answers = shuffle(answerCards)
 
-  // 3-distribute cards to players
   const playerHands = {}
+  const scores = {}
+  const modalHands = {}
   playerIds.forEach((playerId) => {
+    // 3-distribute cards to players
     if (playerId !== kingId) {
       playerHands[playerId] = [answers.pop(), answers.pop(), answers.pop()]
     }
-  })
 
-  // Init Scores
-  const scores = {}
-  playerIds.forEach((playerId) => {
+    // Init Scores
     scores[playerId] = 0
+
+    // init Modal Answers
+    modalHands[playerId] = false
   })
 
   return {
     round: 0,
     phase: 1,
-    kingId: kingId,
     players: playerIds,
-    scores: scores,
+    kingId: kingId,
     hands: playerHands,
+    scores: scores,
     question: questions[0],
+    modalHands: modalHands,
   }
 }

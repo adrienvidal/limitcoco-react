@@ -54,12 +54,23 @@ const GameState = (props) => {
     })
   }
 
+  const showModalHands = (action) => {
+    state.game.modalHands[state.userId] = action
+    return new Promise((resolve) => {
+      socket.emit('server:game:update', state.game, () => {
+        dispatch({ type: 'SET_MODAL_HANDS', payload: state.game })
+        resolve(state.game)
+      })
+    })
+  }
+
   return (
     <GameContext.Provider
       value={{
         state,
         joinGame,
         resetGame,
+        showModalHands,
       }}
     >
       {props.children}

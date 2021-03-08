@@ -5,12 +5,10 @@ import style from './index.module.scss'
 // context
 import GameContext from '../../../context/game/gameContext'
 
-const ModalCards = () => {
+const ModalHands = () => {
   const gameContext = useContext(GameContext)
-  const { users, selectCard } = gameContext
-
-  // get your data
-  const userYou = users.find((user) => user.isYou)
+  const { state, showModalHands } = gameContext
+  const { game, userId } = state
 
   return (
     <div className={style.main}>
@@ -18,14 +16,14 @@ const ModalCards = () => {
         <h3 className={style.title}>Choose your card(s)</h3>
 
         <div className={style['cards-hand']}>
-          {userYou.cards.map((card, index) => {
+          {game.hands[userId].map((card, index) => {
             return (
               <div
                 key={card.id}
                 className={style['card-wrapper']}
-                onClick={() => {
+                /* onClick={() => {
                   selectCard(userYou.id, card.id)
-                }}
+                }} */
               >
                 <AnswerCard card={card} />
               </div>
@@ -37,4 +35,4 @@ const ModalCards = () => {
   )
 }
 
-export default ModalCards
+export default ModalHands

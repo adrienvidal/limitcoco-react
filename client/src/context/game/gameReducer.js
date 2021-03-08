@@ -15,6 +15,11 @@ const gameReducer = (state, action) => {
         ...state,
         game: action.payload,
       }
+    case 'SET_MODAL_HANDS':
+      return {
+        ...state,
+        game: action.payload,
+      }
 
     default:
       return state
