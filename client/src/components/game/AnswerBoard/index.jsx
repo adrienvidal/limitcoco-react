@@ -5,7 +5,7 @@ import style from './index.module.scss'
 // context
 import GameContext from '../../../context/game/gameContext'
 
-const QuestionBoard = () => {
+const AnswerBoard = () => {
   const gameContext = useContext(GameContext)
   const { state } = gameContext
   const { game, userId } = state
@@ -47,4 +47,4 @@ const QuestionBoard = () => {
   )
 }
 
-export default QuestionBoard
+export default AnswerBoard

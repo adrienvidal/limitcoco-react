@@ -3,6 +3,7 @@ import style from './index.module.scss'
 
 import QuestionBoard from '../QuestionBoard'
 import AnswerBoard from '../AnswerBoard'
+import AnswerChoiceBoard from '../AnswerChoiceBoard'
 
 // context
 import GameContext from '../../../context/game/gameContext'
@@ -15,11 +16,10 @@ const Board = () => {
   return (
     <div className={style.main}>
       <div className={style.top}>
-        <QuestionBoard />
+        {game.kingId === userId ? <AnswerChoiceBoard /> : <QuestionBoard />}
       </div>
       <div className={style.bottom}>
-        {/* show answers cards if you ar not the king */}
-        {game.hands[userId] ? <AnswerBoard /> : <p>You are the King</p>}
+        {game.kingId === userId ? <QuestionBoard /> : <AnswerBoard />}
       </div>
     </div>
   )

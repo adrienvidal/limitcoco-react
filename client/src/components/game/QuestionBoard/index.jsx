@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { Fragment, useContext } from 'react'
 import QuestionCard from '../../common/QuestionCard'
 import style from './index.module.scss'
 
@@ -8,12 +8,17 @@ import GameContext from '../../../context/game/gameContext'
 const QuestionBoard = () => {
   const gameContext = useContext(GameContext)
   const { state } = gameContext
-  const { game } = state
+  const { game, userId } = state
 
   return (
-    <div className={style['card-wrapper']}>
-      <QuestionCard card={game.question} />
-    </div>
+    <Fragment>
+      {game.kingId === userId && (
+        <h3 className={style.title}>Your are the King !</h3>
+      )}
+      <div className={style['card-wrapper']}>
+        <QuestionCard card={game.question} />
+      </div>
+    </Fragment>
   )
 }
 
