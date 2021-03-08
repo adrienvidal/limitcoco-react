@@ -15,7 +15,7 @@ const Home = () => {
     <Fragment>
       {state.game ? (
         <Fragment>
-          <button onClick={() => resetGame(state)}>Reset</button>
+          {/* <button onClick={() => resetGame(state)}>Reset</button> */}
           <Game />
         </Fragment>
       ) : (

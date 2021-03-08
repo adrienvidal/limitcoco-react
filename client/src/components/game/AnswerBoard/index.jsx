@@ -7,10 +7,9 @@ import GameContext from '../../../context/game/gameContext'
 
 const QuestionBoard = () => {
   const gameContext = useContext(GameContext)
-  const { users, showModalCards } = gameContext
-
-  // get your data
-  const userYou = users.find((user) => user.isYou)
+  const { state } = gameContext
+  const { game, userId } = state
+  // const { users, showModalCards } = gameContext
 
   // hand simulation
   const translateCard = 60
@@ -23,11 +22,11 @@ const QuestionBoard = () => {
         style={{
           transform:
             'translateX(' +
-            (translateCard * (userYou.cards.length - 1)) / 2 +
+            (translateCard * (game.hands[userId].length - 1)) / 2 +
             'px)',
         }}
       >
-        {userYou.cards.map((card, index) => {
+        {game.hands[userId].map((card, index) => {
           return (
             <div
               key={card.id}
@@ -35,9 +34,9 @@ const QuestionBoard = () => {
               style={{
                 transform: 'translateX(-' + translateCard * index + 'px)',
               }}
-              onClick={() => {
+              /* onClick={() => {
                 showModalCards(true)
-              }}
+              }} */
             >
               <AnswerCard card={card} />
             </div>

@@ -4,7 +4,7 @@ import style from './index.module.scss'
 const AnswerCard = ({ card }) => {
   return (
     <div className={`${style.main} ${card.isSelected ? style.active : ''}`}>
-      <p>{card.desc}</p>
+      <p>{card.text}</p>
     </div>
   )
 }

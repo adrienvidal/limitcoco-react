@@ -7,11 +7,12 @@ import GameContext from '../../../context/game/gameContext'
 
 const QuestionBoard = () => {
   const gameContext = useContext(GameContext)
-  const { currentQuestion } = gameContext
+  const { state } = gameContext
+  const { game } = state
 
   return (
     <div className={style['card-wrapper']}>
-      <QuestionCard card={currentQuestion} />
+      <QuestionCard card={game.question} />
     </div>
   )
 }

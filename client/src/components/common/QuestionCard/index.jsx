@@ -4,7 +4,7 @@ import style from './index.module.scss'
 const QuestionCard = ({ card }) => {
   return (
     <div className={style.main}>
-      <p>{card.desc}</p>
+      <p>{card.text}</p>
     </div>
   )
 }
