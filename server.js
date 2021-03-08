@@ -32,9 +32,11 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('User disconnected', socket.id)
 
-    // room update
+    // room&game update
     state.room.users = state.room.users.filter((id) => id !== socket.id)
+    state.game = null
     socket.to(defaultRoom).emit('client:room:update', state.room)
+    socket.to(defaultRoom).emit('client:game:update', state.game)
   })
 
   // join game
