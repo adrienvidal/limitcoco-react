@@ -64,6 +64,21 @@ const GameState = (props) => {
     })
   }
 
+  const selectCard = (id) => {
+    const thisCard = state.game.hands[state.userId].find((e) => e.id === id)
+    if (thisCard.selection === 1) {
+      thisCard.selection = 0
+    } else {
+      thisCard.selection = 1
+    }
+    return new Promise((resolve) => {
+      socket.emit('server:game:update', state.game, () => {
+        dispatch({ type: 'SET_SELECT_CARD', payload: state.game })
+        resolve(state.game)
+      })
+    })
+  }
+
   return (
     <GameContext.Provider
       value={{
@@ -71,6 +86,7 @@ const GameState = (props) => {
         joinGame,
         resetGame,
         showModalHands,
+        selectCard,
       }}
     >
       {props.children}

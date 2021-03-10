@@ -7,7 +7,7 @@ import GameContext from '../../../context/game/gameContext'
 
 const ModalHands = () => {
   const gameContext = useContext(GameContext)
-  const { state, showModalHands } = gameContext
+  const { state, showModalHands, selectCard } = gameContext
   const { game, userId } = state
 
   return (
@@ -21,15 +21,17 @@ const ModalHands = () => {
               <div
                 key={card.id}
                 className={style['card-wrapper']}
-                /* onClick={() => {
-                  selectCard(userYou.id, card.id)
-                }} */
+                onClick={() => {
+                  selectCard(card.id)
+                }}
               >
-                <AnswerCard card={card} />
+                <AnswerCard card={card} location='modal' />
               </div>
             )
           })}
         </div>
+
+        <button type='button'>Submit</button>
       </div>
     </div>
   )

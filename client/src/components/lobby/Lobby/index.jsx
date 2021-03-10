@@ -23,7 +23,9 @@ const Lobby = () => {
           })}
 
         {state.room && state.room.users.length > 1 && (
-          <button onClick={() => resetGame(state)}>Start</button>
+          <button type='button' onClick={() => resetGame(state)}>
+            Start
+          </button>
         )}
       </div>
 

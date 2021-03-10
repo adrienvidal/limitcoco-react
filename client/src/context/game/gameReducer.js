@@ -20,6 +20,11 @@ const gameReducer = (state, action) => {
         ...state,
         game: action.payload,
       }
+    case 'SET_SELECT_CARD':
+      return {
+        ...state,
+        game: action.payload,
+      }
 
     default:
       return state

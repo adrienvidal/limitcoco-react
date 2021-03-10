@@ -11,8 +11,12 @@
   padding: 20px 7px;
 
   &.active {
-    transform: translateY(-60px);
+    transform: translateY(-30px);
     border: none;
     box-shadow: 0 0 0 2px $white;
+  }
+
+  &.modal {
+    transform: translateY(0px);
   }
 }
