@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, Fragment } from 'react'
 import style from './index.module.scss'
 
 import QuestionBoard from '../QuestionBoard'
@@ -15,12 +15,22 @@ const Board = () => {
 
   return (
     <div className={style.main}>
-      <div className={style.top}>
-        {game.kingId === userId ? <AnswerChoiceBoard /> : <QuestionBoard />}
-      </div>
-      <div className={style.bottom}>
-        {game.kingId === userId ? <QuestionBoard /> : <AnswerBoard />}
-      </div>
+      {game.phase.phaseGame === 0 && (
+        <Fragment>
+          <div className={style.top}>
+            {game.kingId === userId ? <AnswerChoiceBoard /> : <QuestionBoard />}
+          </div>
+          <div className={style.bottom}>
+            {game.kingId === userId ? <QuestionBoard /> : <AnswerBoard />}
+          </div>
+        </Fragment>
+      )}
+
+      {game.phase.phaseGame === 1 && (
+        <Fragment>
+          <div className='phase1'>King choose answer</div>
+        </Fragment>
+      )}
     </div>
   )
 }

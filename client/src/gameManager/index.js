@@ -25,11 +25,18 @@ export function createNewGame(playerIds) {
   const playerHands = {}
   const scores = {}
   const modalHands = {}
+  const phasePlayer = []
   playerIds.forEach((playerId) => {
     // 3-distribute cards to players
     if (playerId !== kingId) {
       playerHands[playerId] = [answers.pop(), answers.pop(), answers.pop()]
     }
+
+    // Init phase
+    phasePlayer.push({
+      id: playerId,
+      phase: false,
+    })
 
     // Init Scores
     scores[playerId] = 0
@@ -40,7 +47,7 @@ export function createNewGame(playerIds) {
 
   return {
     round: 0,
-    phase: 1,
+    phase: { phaseGame: 0, phasePlayer: phasePlayer },
     players: playerIds,
     kingId: kingId,
     hands: playerHands,

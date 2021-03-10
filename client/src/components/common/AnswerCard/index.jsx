@@ -4,7 +4,7 @@ import style from './index.module.scss'
 const AnswerCard = ({ card, location }) => {
   return (
     <div
-      className={`${style.main} ${card.selection === 1 ? style.active : ''} ${
+      className={`${style.main} ${card.selection >= 1 ? style.active : ''} ${
         location === 'modal' ? style['modal'] : ''
       }`}
     >

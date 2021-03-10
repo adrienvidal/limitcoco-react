@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import AnswerCard from '../../common/AnswerCard'
+import { Button1 } from '../../common/Buttons'
 import style from './index.module.scss'
 
 // context
@@ -7,7 +8,7 @@ import GameContext from '../../../context/game/gameContext'
 
 const ModalHands = () => {
   const gameContext = useContext(GameContext)
-  const { state, showModalHands, selectCard } = gameContext
+  const { state, selectCard, submitCard } = gameContext
   const { game, userId } = state
 
   return (
@@ -31,7 +32,9 @@ const ModalHands = () => {
           })}
         </div>
 
-        <button type='button'>Submit</button>
+        <div className={style['cta']}>
+          <Button1 text='Submit' onAction={submitCard} />
+        </div>
       </div>
     </div>
   )

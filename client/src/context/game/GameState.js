@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react'
 import GameContext from './gameContext'
 import gameReducer from './gameReducer'
+import { nextPhaseGame } from './../utils'
 import io from 'socket.io-client'
 import { createNewGame } from '../../gameManager'
 
@@ -58,7 +59,31 @@ const GameState = (props) => {
     state.game.modalHands[state.userId] = action
     return new Promise((resolve) => {
       socket.emit('server:game:update', state.game, () => {
-        dispatch({ type: 'SET_MODAL_HANDS', payload: state.game })
+        dispatch({ type: 'SET_GAME_STATE', payload: state.game })
+        resolve(state.game)
+      })
+    })
+  }
+
+  const changePhaseGame = () => {
+    const phase = state.game.phase
+    phase.phaseGame = nextPhaseGame(phase)
+
+    return new Promise((resolve) => {
+      socket.emit('server:game:update', state.game, () => {
+        dispatch({ type: 'SET_GAME_STATE', payload: state.game })
+        resolve(state.game)
+      })
+    })
+  }
+
+  const changePhasePlayer = (bool) => {
+    state.game.phase.phasePlayer.find((e) => e.id === state.userId).phase = bool
+    changePhaseGame()
+
+    return new Promise((resolve) => {
+      socket.emit('server:game:update', state.game, () => {
+        dispatch({ type: 'SET_GAME_STATE', payload: state.game })
         resolve(state.game)
       })
     })
@@ -73,7 +98,27 @@ const GameState = (props) => {
     }
     return new Promise((resolve) => {
       socket.emit('server:game:update', state.game, () => {
-        dispatch({ type: 'SET_SELECT_CARD', payload: state.game })
+        dispatch({ type: 'SET_GAME_STATE', payload: state.game })
+        resolve(state.game)
+      })
+    })
+  }
+
+  const submitCard = () => {
+    const hands = state.game.hands[state.userId]
+    for (var i in hands) {
+      if (hands[i].selection === 1) {
+        hands[i].selection = 2
+      }
+    }
+
+    // close modal
+    showModalHands(false)
+    changePhasePlayer(true)
+
+    return new Promise((resolve) => {
+      socket.emit('server:game:update', state.game, () => {
+        dispatch({ type: 'SET_GAME_STATE', payload: state.game })
         resolve(state.game)
       })
     })
@@ -87,6 +132,7 @@ const GameState = (props) => {
         resetGame,
         showModalHands,
         selectCard,
+        submitCard,
       }}
     >
       {props.children}
