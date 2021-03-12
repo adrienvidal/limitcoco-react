@@ -5,7 +5,7 @@ export function nextPhaseGame(phase) {
   // 2 => score & restart
   if (
     phase.phaseGame === 0 &&
-    phase.phasePlayer.filter((e) => e.phase === true).length ===
+    phase.phasePlayer.filter((e) => e.hasPlayed === true).length ===
       phase.phasePlayer.length - 1
   ) {
     return 1

@@ -1,4 +1,4 @@
-export const answerDeck = [
+export const answers = [
   { text: 'Answer' },
   { text: 'Answer' },
   { text: 'Answer' },
@@ -23,9 +23,9 @@ export const answerDeck = [
   { text: 'Answer' },
   { text: 'Answer' },
   { text: 'Answer' },
-];
+]
 
-export const questionDeck = [
+export const questions = [
   { text: 'Question' },
   { text: 'Question' },
   { text: 'Question' },
@@ -41,4 +41,4 @@ export const questionDeck = [
   { text: 'Question' },
   { text: 'Question' },
   { text: 'Question' },
-];
+]

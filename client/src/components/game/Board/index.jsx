@@ -4,6 +4,7 @@ import style from './index.module.scss'
 import QuestionBoard from '../QuestionBoard'
 import AnswerBoard from '../AnswerBoard'
 import AnswerChoiceBoard from '../AnswerChoiceBoard'
+import KingChoiceBoard from '../KingChoiceBoard'
 
 // context
 import GameContext from '../../../context/game/gameContext'
@@ -26,11 +27,7 @@ const Board = () => {
         </Fragment>
       )}
 
-      {game.phase.phaseGame === 1 && (
-        <Fragment>
-          <div className='phase1'>King choose answer</div>
-        </Fragment>
-      )}
+      {game.phase.phaseGame === 1 && <KingChoiceBoard />}
     </div>
   )
 }

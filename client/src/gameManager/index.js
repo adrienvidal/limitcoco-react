@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 import { shuffle, deepClone } from './utils'
-import { questionDeck, answerDeck } from './cards'
+import { questions, answers } from './cards'
 
 export function createNewGame(playerIds) {
   // Init King
@@ -8,19 +8,19 @@ export function createNewGame(playerIds) {
 
   // Init Cards
   // 1-create deck
-  const answerCards = answerDeck.map((card) => ({
+  const answerCards = answers.map((card) => ({
     id: uuidv4(),
     text: card.text,
     selection: 0, // 0 -> none | 1 -> selected | 2 -> validate
   }))
-  const questionCards = questionDeck.map((card) => ({
+  const questionCards = questions.map((card) => ({
     id: uuidv4(),
     text: card.text,
   }))
 
   // 2-shuffle
-  let questions = shuffle(questionCards)
-  let answers = shuffle(answerCards)
+  const questionDeck = shuffle(questionCards)
+  const answerDeck = shuffle(answerCards)
 
   const playerHands = {}
   const scores = {}
@@ -28,14 +28,16 @@ export function createNewGame(playerIds) {
   const phasePlayer = []
   playerIds.forEach((playerId) => {
     // 3-distribute cards to players
-    if (playerId !== kingId) {
-      playerHands[playerId] = [answers.pop(), answers.pop(), answers.pop()]
-    }
+    playerHands[playerId] = [
+      answerDeck.pop(),
+      answerDeck.pop(),
+      answerDeck.pop(),
+    ]
 
     // Init phase
     phasePlayer.push({
       id: playerId,
-      phase: false,
+      hasPlayed: false,
     })
 
     // Init Scores
@@ -52,7 +54,7 @@ export function createNewGame(playerIds) {
     kingId: kingId,
     hands: playerHands,
     scores: scores,
-    question: questions[0],
+    question: questionDeck.pop(),
     modalHands: modalHands,
   }
 }

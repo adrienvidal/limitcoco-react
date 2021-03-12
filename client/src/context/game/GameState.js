@@ -78,7 +78,9 @@ const GameState = (props) => {
   }
 
   const changePhasePlayer = (bool) => {
-    state.game.phase.phasePlayer.find((e) => e.id === state.userId).phase = bool
+    state.game.phase.phasePlayer.find(
+      (e) => e.id === state.userId
+    ).hasPlayed = bool
     changePhaseGame()
 
     return new Promise((resolve) => {
