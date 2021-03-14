@@ -126,6 +126,8 @@ const GameState = (props) => {
     })
   }
 
+  const getPlayersAnswers = () => {}
+
   return (
     <GameContext.Provider
       value={{

@@ -5,10 +5,14 @@ export function createNewGame(playerIds) {
   const kingId = playerIds[0]
   const questionCards = cards.getQuestions()
   const answerCards = cards.getAnswers()
+  const kingQuestion = cards.draw(questionCards, 1)[0]
   const playerHands = {}
+  const playersAnswers = {}
   const scores = {}
   const modalHands = {}
   const phasePlayer = []
+
+  console.log('kingQuestion', kingQuestion)
 
   playerIds.forEach((playerId) => {
     // Init players Hands
@@ -20,6 +24,7 @@ export function createNewGame(playerIds) {
       hasPlayed: false,
     })
 
+    playersAnswers[playerId] = []
     // Init Scores
     scores[playerId] = 0
 
@@ -32,7 +37,11 @@ export function createNewGame(playerIds) {
     deck: { questions: questionCards, answers: answerCards },
     phase: { phaseGame: 0, phasePlayer: phasePlayer },
     hands: playerHands,
-    king: { id: kingId, question: questionCards.pop() },
+    king: {
+      id: kingId,
+      question: kingQuestion,
+      playersAnswers: playersAnswers,
+    },
     round: 0,
     scores: scores,
     modalHands: modalHands,
