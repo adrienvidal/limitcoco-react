@@ -3,7 +3,7 @@ import style from './index.module.scss'
 
 import QuestionBoard from '../QuestionBoard'
 import AnswerBoard from '../AnswerBoard'
-import AnswerChoiceBoard from '../AnswerChoiceBoard'
+import WaitingForPlayers from '../WaitingForPlayers'
 import KingChoiceBoard from '../KingChoiceBoard'
 
 // context
@@ -18,16 +18,25 @@ const Board = () => {
     <div className={style.main}>
       {game.phase.phaseGame === 0 && (
         <Fragment>
-          <div className={style.top}>
-            {game.king.id === userId ? (
-              <AnswerChoiceBoard />
-            ) : (
-              <QuestionBoard />
-            )}
-          </div>
-          <div className={style.bottom}>
-            {game.king.id === userId ? <QuestionBoard /> : <AnswerBoard />}
-          </div>
+          {game.king.id === userId ? (
+            <Fragment>
+              <div className={style.top}>
+                <WaitingForPlayers />
+              </div>
+              <div className={style.bottom}>
+                <QuestionBoard />
+              </div>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <div className={style.top}>
+                <QuestionBoard />
+              </div>
+              <div className={style.bottom}>
+                <AnswerBoard />
+              </div>
+            </Fragment>
+          )}
         </Fragment>
       )}
 

@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import QuestionCard from '../../common/QuestionCard'
 import AnswerCard from '../../common/AnswerCard'
 import style from './index.module.scss'
@@ -10,6 +10,12 @@ const KingChoiceBoard = () => {
   const gameContext = useContext(GameContext)
   const { state, showModalHands } = gameContext
   const { game, userId } = state
+
+  useEffect(() => {
+    /* if (current !== null) {
+      setContact(current);
+    } */
+  }, [])
 
   return (
     <div className={style.main}>

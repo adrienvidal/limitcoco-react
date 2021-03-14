@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import style from './index.module.scss'
 
-const AnswerChoiceBoard = () => {
+const WaitingForPlayers = () => {
   return (
     <Fragment>
       <p className={style.msg}>Waiting for players...</p>
@@ -9,4 +9,4 @@ const AnswerChoiceBoard = () => {
   )
 }
 
-export default AnswerChoiceBoard
+export default WaitingForPlayers
