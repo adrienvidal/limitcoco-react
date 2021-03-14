@@ -15,11 +15,11 @@ const KingChoiceBoard = () => {
     <div className={style.main}>
       <div className={style.title}>King choice</div>
       <div className={style.wrapper}>
-        <QuestionCard card={game.question} />
-        <QuestionCard card={game.question} />
-        <QuestionCard card={game.question} />
-        <QuestionCard card={game.question} />
-        <QuestionCard card={game.question} />
+        <QuestionCard card={game.king.question} />
+        <QuestionCard card={game.king.question} />
+        <QuestionCard card={game.king.question} />
+        <QuestionCard card={game.king.question} />
+        <QuestionCard card={game.king.question} />
       </div>
     </div>
   )

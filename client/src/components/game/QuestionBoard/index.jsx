@@ -12,11 +12,11 @@ const QuestionBoard = () => {
 
   return (
     <Fragment>
-      {game.kingId === userId && (
+      {game.king.id === userId && (
         <h3 className={style.title}>Your are the King !</h3>
       )}
       <div className={style['card-wrapper']}>
-        <QuestionCard card={game.question} />
+        <QuestionCard card={game.king.question} />
       </div>
     </Fragment>
   )

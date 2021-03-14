@@ -19,10 +19,14 @@ const Board = () => {
       {game.phase.phaseGame === 0 && (
         <Fragment>
           <div className={style.top}>
-            {game.kingId === userId ? <AnswerChoiceBoard /> : <QuestionBoard />}
+            {game.king.id === userId ? (
+              <AnswerChoiceBoard />
+            ) : (
+              <QuestionBoard />
+            )}
           </div>
           <div className={style.bottom}>
-            {game.kingId === userId ? <QuestionBoard /> : <AnswerBoard />}
+            {game.king.id === userId ? <QuestionBoard /> : <AnswerBoard />}
           </div>
         </Fragment>
       )}
