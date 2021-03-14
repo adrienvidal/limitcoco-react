@@ -1,24 +1,18 @@
-import { cards } from './cards'
+import cards from './cards'
 
 export function createNewGame(playerIds) {
-  // Init King
+  // Init constructor
   const kingId = playerIds[0]
-
-  // Init Cards
   const questionCards = cards.getQuestions()
   const answerCards = cards.getAnswers()
-
   const playerHands = {}
   const scores = {}
   const modalHands = {}
   const phasePlayer = []
+
   playerIds.forEach((playerId) => {
-    // 3-distribute cards to players
-    playerHands[playerId] = [
-      answerCards.pop(),
-      answerCards.pop(),
-      answerCards.pop(),
-    ]
+    // Init players Hands
+    playerHands[playerId] = cards.draw(answerCards, 3)
 
     // Init phase
     phasePlayer.push({
@@ -34,12 +28,12 @@ export function createNewGame(playerIds) {
   })
 
   return {
-    round: 0,
-    phase: { phaseGame: 0, phasePlayer: phasePlayer },
     players: playerIds,
-    king: { id: kingId, question: questionCards.pop() },
     deck: { questions: questionCards, answers: answerCards },
+    phase: { phaseGame: 0, phasePlayer: phasePlayer },
     hands: playerHands,
+    king: { id: kingId, question: questionCards.pop() },
+    round: 0,
     scores: scores,
     modalHands: modalHands,
   }

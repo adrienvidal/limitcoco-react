@@ -78,6 +78,15 @@ class CARDS {
     }
     return resultArray
   }
+
+  draw(cards, number) {
+    const cardsDrawn = []
+    for (let i = 0; i < number; i++) {
+      cardsDrawn.push(cards.pop())
+    }
+    return cardsDrawn
+  }
 }
 
-export const cards = new CARDS()
+const cards = new CARDS()
+export default cards
