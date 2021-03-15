@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react'
 import GameContext from './gameContext'
 import gameReducer from './gameReducer'
-import { nextPhaseGame } from './../utils'
+import { isEverybodyPlayed } from './../utils'
 import io from 'socket.io-client'
 import { createNewGame } from '../../gameManager'
 
@@ -65,9 +65,26 @@ const GameState = (props) => {
     })
   }
 
-  const changePhaseGame = () => {
-    const phase = state.game.phase
-    phase.phaseGame = nextPhaseGame(phase)
+  const changePhaseGame = (newPhase) => {
+    // 0 => players choose answers cards
+    // 1 => King choose his favorite answer(s)
+    // 2 => score & restart
+
+    const { phase } = state.game
+    switch (newPhase) {
+      case 1:
+        if (phase.phaseGame === 0 && isEverybodyPlayed(phase)) {
+          phase.phaseGame = newPhase
+        }
+        break
+      case 2:
+        if (phase.phaseGame === 1) {
+          phase.phaseGame = newPhase
+        }
+        break
+      default:
+        break
+    }
 
     return new Promise((resolve) => {
       socket.emit('server:game:update', state.game, () => {
@@ -81,7 +98,8 @@ const GameState = (props) => {
     state.game.phase.phasePlayer.find(
       (e) => e.id === state.userId
     ).hasPlayed = bool
-    changePhaseGame()
+
+    changePhaseGame(1)
 
     return new Promise((resolve) => {
       socket.emit('server:game:update', state.game, () => {
@@ -126,7 +144,32 @@ const GameState = (props) => {
     })
   }
 
-  const getPlayersAnswers = () => {}
+  const pushPlayersAnswers = () => {
+    for (const userId in state.game.hands) {
+      // get players answers cards
+      const playerAnswer = state.game.hands[userId].filter(
+        (e) => e.selection === 2
+      )
+
+      // remove cards from player hands
+      playerAnswer.forEach((f) =>
+        state.game.hands[userId].splice(
+          state.game.hands[userId].findIndex((e) => e.id === f.id),
+          1
+        )
+      )
+
+      // add to king board
+      state.game.king.playersAnswers[userId] = playerAnswer
+    }
+
+    return new Promise((resolve) => {
+      socket.emit('server:game:update', state.game, () => {
+        dispatch({ type: 'SET_GAME_STATE', payload: state.game })
+        resolve(state.game)
+      })
+    })
+  }
 
   return (
     <GameContext.Provider
@@ -137,6 +180,7 @@ const GameState = (props) => {
         showModalHands,
         selectCard,
         submitCard,
+        pushPlayersAnswers,
       }}
     >
       {props.children}

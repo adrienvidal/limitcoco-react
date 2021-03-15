@@ -8,13 +8,13 @@ import GameContext from '../../../context/game/gameContext'
 
 const KingChoiceBoard = () => {
   const gameContext = useContext(GameContext)
-  const { state, showModalHands } = gameContext
+  const { state, pushPlayersAnswers } = gameContext
   const { game, userId } = state
 
   useEffect(() => {
-    /* if (current !== null) {
-      setContact(current);
-    } */
+    if (game.king.id === userId) {
+      pushPlayersAnswers()
+    }
   }, [])
 
   return (
