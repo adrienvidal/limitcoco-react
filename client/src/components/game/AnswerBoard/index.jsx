@@ -15,7 +15,13 @@ const AnswerBoard = () => {
 
   return (
     <Fragment>
-      <h3 className={style.title}>Choose your card(s)</h3>
+      {game.phase.phaseGame === 0 && (
+        <h3 className={style.title}>Choose your card(s)</h3>
+      )}
+      {game.phase.phaseGame === 1 && (
+        <h3 className={style.title}>Who will be the winner ?</h3>
+      )}
+
       <div
         className={style['cards-hand']}
         style={{
