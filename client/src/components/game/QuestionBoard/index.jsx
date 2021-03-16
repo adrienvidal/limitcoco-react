@@ -12,12 +12,27 @@ const QuestionBoard = () => {
   const { game, userId } = state
 
   useEffect(() => {
-    if (game.king.id === userId) {
+    if (game.king.id === userId && game.phase.phaseGame === 1) {
       pushPlayersAnswers()
     }
-  }, [])
+  }, [game.phase.phaseGame])
 
-  // game.phase.phaseGame === 0
+  const showAnswersDecks = () => {
+    let answersDecks = []
+    for (let user in game.king.playersAnswers) {
+      if (game.king.id !== user) {
+        answersDecks.push(
+          <div className={style['answer-deck']}>
+            {game.king.playersAnswers[user].map((card) => (
+              <AnswerCard card={card} />
+            ))}
+          </div>
+        )
+      }
+    }
+
+    return answersDecks
+  }
 
   return (
     <div className={style.main}>
@@ -32,7 +47,12 @@ const QuestionBoard = () => {
         </Fragment>
       )}
       <div className={style.wrapper}>
-        <QuestionCard card={game.king.question} />
+        <div className={style['question-wrapper']}>
+          <QuestionCard card={game.king.question} />
+        </div>
+        {game.phase.phaseGame === 1 && (
+          <div className={style['answers-wrapper']}>{showAnswersDecks()}</div>
+        )}
       </div>
     </div>
   )
