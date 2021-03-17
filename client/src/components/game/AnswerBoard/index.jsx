@@ -39,9 +39,13 @@ const AnswerBoard = () => {
               style={{
                 transform: 'translateX(-' + translateCard * index + 'px)',
               }}
-              onClick={() => {
-                showModalHands(true)
-              }}
+              onClick={
+                game.phase.phaseGame === 0
+                  ? () => {
+                      showModalHands(true)
+                    }
+                  : null
+              }
             >
               <AnswerCard card={card} />
             </div>

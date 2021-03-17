@@ -110,12 +110,20 @@ const GameState = (props) => {
   }
 
   const selectCard = (id) => {
-    const thisCard = state.game.hands[state.userId].find((e) => e.id === id)
-    if (thisCard.selection === 1) {
-      thisCard.selection = 0
-    } else {
-      thisCard.selection = 1
+    const playableCard = 1
+    const currentCard = state.game.hands[state.userId].find((e) => e.id === id)
+    const isCurrentCardSelected = currentCard.selection === 1
+    const answersSelected = state.game.hands[state.userId].filter(
+      (e) => e.selection === 1
+    )
+    const areAllAnswersSelected = answersSelected.length === playableCard
+
+    if (isCurrentCardSelected) {
+      currentCard.selection = 0
+    } else if (!areAllAnswersSelected && !isCurrentCardSelected) {
+      currentCard.selection = 1
     }
+
     return new Promise((resolve) => {
       socket.emit('server:game:update', state.game, () => {
         dispatch({ type: 'SET_GAME_STATE', payload: state.game })

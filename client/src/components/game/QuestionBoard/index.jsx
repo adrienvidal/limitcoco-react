@@ -28,6 +28,7 @@ const QuestionBoard = () => {
           <div className={style['answer-deck']}>
             {game.king.playersAnswers[user].map((card, index) => (
               <div
+                key={card.id}
                 className={style['card-wrapper']}
                 style={{
                   transform: 'translateY(-' + translateCard * index + 'px)',
