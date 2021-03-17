@@ -6,6 +6,9 @@ import style from './index.module.scss'
 // context
 import GameContext from '../../../context/game/gameContext'
 
+// hand simulation
+const translateCard = 150
+
 const QuestionBoard = () => {
   const gameContext = useContext(GameContext)
   const { state, pushPlayersAnswers } = gameContext
@@ -23,8 +26,15 @@ const QuestionBoard = () => {
       if (game.king.id !== user) {
         answersDecks.push(
           <div className={style['answer-deck']}>
-            {game.king.playersAnswers[user].map((card) => (
-              <AnswerCard card={card} />
+            {game.king.playersAnswers[user].map((card, index) => (
+              <div
+                className={style['card-wrapper']}
+                style={{
+                  transform: 'translateY(-' + translateCard * index + 'px)',
+                }}
+              >
+                <AnswerCard card={card} />
+              </div>
             ))}
           </div>
         )
