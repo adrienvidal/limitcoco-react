@@ -19,3 +19,9 @@
 .card-wrapper {
   cursor: pointer;
 }
+
+.inactive {
+  pointer-events: none;
+  filter: grayscale(100%);
+  opacity: 0.8;
+}

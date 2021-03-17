@@ -17,7 +17,7 @@ const ModalHands = () => {
         <h3 className={style.title}>Choose your card(s)</h3>
 
         <div className={style['cards-hand']}>
-          {game.hands[userId].map((card, index) => {
+          {game.hands[userId].map((card) => {
             return (
               <div
                 key={card.id}

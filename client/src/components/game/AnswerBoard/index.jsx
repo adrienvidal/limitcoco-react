@@ -10,6 +10,11 @@ const AnswerBoard = () => {
   const { state, showModalHands } = gameContext
   const { game, userId } = state
 
+  // test
+  const hasCurrentPlayerPlayed = game.phase.phasePlayer.find(
+    (e) => e.id === userId
+  ).hasPlayed
+
   // hand simulation
   const translateCard = 60
 
@@ -23,7 +28,9 @@ const AnswerBoard = () => {
       )}
 
       <div
-        className={style['cards-hand']}
+        className={`${style['cards-hand']} ${
+          game.phase.phaseGame === 1 && style.inactive
+        }`}
         style={{
           transform:
             'translateX(' +
@@ -40,11 +47,10 @@ const AnswerBoard = () => {
                 transform: 'translateX(-' + translateCard * index + 'px)',
               }}
               onClick={
-                game.phase.phaseGame === 0
-                  ? () => {
-                      showModalHands(true)
-                    }
-                  : null
+                !hasCurrentPlayerPlayed &&
+                (() => {
+                  showModalHands(true)
+                })
               }
             >
               <AnswerCard card={card} />
