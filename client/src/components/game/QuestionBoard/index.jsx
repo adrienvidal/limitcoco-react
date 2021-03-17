@@ -11,7 +11,7 @@ const translateCard = 150
 
 const QuestionBoard = () => {
   const gameContext = useContext(GameContext)
-  const { state, pushPlayersAnswers } = gameContext
+  const { state, pushPlayersAnswers, showModalKing } = gameContext
   const { game, userId } = state
 
   useEffect(() => {
@@ -62,7 +62,18 @@ const QuestionBoard = () => {
           <QuestionCard card={game.king.question} />
         </div>
         {game.phase.phaseGame === 1 && (
-          <div className={style['answers-wrapper']}>{showAnswersDecks()}</div>
+          <div
+            className={style['answers-wrapper']}
+            onClick={
+              game.king.id === userId
+                ? () => {
+                    showModalKing()
+                  }
+                : null
+            }
+          >
+            {showAnswersDecks()}
+          </div>
         )}
       </div>
     </div>

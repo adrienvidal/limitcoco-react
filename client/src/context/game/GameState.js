@@ -179,6 +179,10 @@ const GameState = (props) => {
     })
   }
 
+  const showModalKing = () => {
+    console.log('showModalKing')
+  }
+
   return (
     <GameContext.Provider
       value={{
@@ -189,6 +193,7 @@ const GameState = (props) => {
         selectCard,
         submitCard,
         pushPlayersAnswers,
+        showModalKing,
       }}
     >
       {props.children}
