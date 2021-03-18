@@ -49,5 +49,6 @@ export function createNewGame(playerIds) {
       isActive: false,
       userId: null,
     },
+    lastWinner: null,
   }
 }

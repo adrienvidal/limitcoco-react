@@ -152,6 +152,21 @@ const GameState = (props) => {
     })
   }
 
+  const submitWinnerDeck = () => {
+    // push the last winner
+    state.game.lastWinner = state.game.modalKing.userId
+
+    showModalKing(false)
+    changePhaseGame(2)
+
+    return new Promise((resolve) => {
+      socket.emit('server:game:update', state.game, () => {
+        dispatch({ type: 'SET_GAME_STATE', payload: state.game })
+        resolve(state.game)
+      })
+    })
+  }
+
   const pushPlayersAnswers = () => {
     for (const userId in state.game.hands) {
       // get players answers cards
@@ -202,6 +217,7 @@ const GameState = (props) => {
         showModalHands,
         selectCard,
         submitCard,
+        submitWinnerDeck,
         pushPlayersAnswers,
         showModalKing,
       }}

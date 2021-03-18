@@ -8,7 +8,7 @@ import GameContext from '../../../context/game/gameContext'
 
 const ModalKing = () => {
   const gameContext = useContext(GameContext)
-  const { state, showModalKing, submitCard } = gameContext
+  const { state, showModalKing, submitWinnerDeck } = gameContext
   const { game, userId } = state
 
   return (
@@ -34,7 +34,7 @@ const ModalKing = () => {
 
         <div className={style['cta']}>
           <Button2 text='Cancel' onAction={() => showModalKing(false)} />
-          <Button1 text='Submit' onAction={submitCard} />
+          <Button1 text='Submit' onAction={submitWinnerDeck} />
         </div>
       </div>
     </div>
