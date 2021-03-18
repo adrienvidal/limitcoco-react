@@ -179,8 +179,18 @@ const GameState = (props) => {
     })
   }
 
-  const showModalKing = () => {
-    console.log('showModalKing')
+  const showModalKing = (action, userId = null) => {
+    state.game.modalKing = {
+      isActive: action,
+      userId: userId,
+    }
+
+    return new Promise((resolve) => {
+      socket.emit('server:game:update', state.game, () => {
+        dispatch({ type: 'SET_GAME_STATE', payload: state.game })
+        resolve(state.game)
+      })
+    })
   }
 
   return (

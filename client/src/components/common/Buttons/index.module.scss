@@ -1,11 +1,25 @@
 @import '../../../assets/styles/common/common';
 
-.main {
+.button1 {
   background-color: $tercery;
-  border: none;
+  border: 1px solid transparent;
   color: $white;
   text-transform: uppercase;
-  font-size: 25px;
+  font-size: 18px;
+  padding: 10px 60px;
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
+}
+
+.button2 {
+  background-color: transparent;
+  border: 1px solid $white;
+  color: $white;
+  text-transform: uppercase;
+  font-size: 18px;
   padding: 10px 60px;
 
   &:active,

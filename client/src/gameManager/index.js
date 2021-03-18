@@ -45,5 +45,9 @@ export function createNewGame(playerIds) {
     round: 0,
     scores: scores,
     modalHands: modalHands,
+    modalKing: {
+      isActive: false,
+      userId: null,
+    },
   }
 }

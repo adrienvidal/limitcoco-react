@@ -25,7 +25,18 @@ const QuestionBoard = () => {
     for (let user in game.king.playersAnswers) {
       if (game.king.id !== user) {
         answersDecks.push(
-          <div className={style['answer-deck']}>
+          <div
+            className={`${style['answer-deck']} ${
+              game.king.id === userId && style.king
+            }`}
+            onClick={
+              game.king.id === userId
+                ? () => {
+                    showModalKing(true, user)
+                  }
+                : null
+            }
+          >
             {game.king.playersAnswers[user].map((card, index) => (
               <div
                 key={card.id}
@@ -62,18 +73,7 @@ const QuestionBoard = () => {
           <QuestionCard card={game.king.question} />
         </div>
         {game.phase.phaseGame === 1 && (
-          <div
-            className={style['answers-wrapper']}
-            onClick={
-              game.king.id === userId
-                ? () => {
-                    showModalKing()
-                  }
-                : null
-            }
-          >
-            {showAnswersDecks()}
-          </div>
+          <div className={style['answers-wrapper']}>{showAnswersDecks()}</div>
         )}
       </div>
     </div>
