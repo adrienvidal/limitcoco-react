@@ -42,7 +42,7 @@ export function createNewGame(playerIds) {
       question: kingQuestion,
       playersAnswers: playersAnswers,
     },
-    round: 0,
+    round: 1,
     scores: scores,
     modalHands: modalHands,
     modalKing: {
@@ -51,4 +51,28 @@ export function createNewGame(playerIds) {
     },
     lastWinner: null,
   }
+}
+
+export function setNextRoundGame(gameState) {
+  return gameState
+
+  /* return {
+    players: playerIds,
+    deck: { questions: questionCards, answers: answerCards },
+    phase: { phaseGame: 0, phasePlayer: phasePlayer },
+    hands: playerHands,
+    king: {
+      id: kingId,
+      question: kingQuestion,
+      playersAnswers: playersAnswers,
+    },
+    round: 1,
+    scores: scores,
+    modalHands: modalHands,
+    modalKing: {
+      isActive: false,
+      userId: null,
+    },
+    lastWinner: null,
+  } */
 }

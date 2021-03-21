@@ -3,7 +3,7 @@ import GameContext from './gameContext'
 import gameReducer from './gameReducer'
 import { isEverybodyPlayed } from './../utils'
 import io from 'socket.io-client'
-import { createNewGame } from '../../gameManager'
+import { createNewGame, setNextRoundGame } from '../../gameManager'
 
 const initialState = {
   game: null,
@@ -155,6 +155,8 @@ const GameState = (props) => {
   const submitWinnerDeck = () => {
     // push the last winner
     state.game.lastWinner = state.game.modalKing.userId
+    state.game.scores[state.game.modalKing.userId] =
+      state.game.scores[state.game.modalKing.userId] + 1
 
     showModalKing(false)
     changePhaseGame(2)
@@ -208,6 +210,19 @@ const GameState = (props) => {
     })
   }
 
+  const nextRound = () => {
+    const nextRoundGame = setNextRoundGame(state.game)
+
+    console.log('nextRoundGame', nextRoundGame)
+
+    /* return new Promise((resolve) => {
+      socket.emit('server:game:update', nextRoundGame, () => {
+        dispatch({ type: 'SET_GAME_STATE', payload: nextRoundGame })
+        resolve(nextRoundGame)
+      })
+    }) */
+  }
+
   return (
     <GameContext.Provider
       value={{
@@ -220,6 +235,7 @@ const GameState = (props) => {
         submitWinnerDeck,
         pushPlayersAnswers,
         showModalKing,
+        nextRound,
       }}
     >
       {props.children}

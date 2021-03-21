@@ -1,0 +1,23 @@
+@import '../../../assets/styles/common/common';
+
+.main {
+  display: flex;
+  width: calc(100% - 300px);
+  justify-content: center;
+  align-items: center;
+}
+
+.desc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 60px;
+  text-transform: uppercase;
+  color: $white;
+  gap: 20px;
+}
+
+.trophy {
+  width: 140px;
+}

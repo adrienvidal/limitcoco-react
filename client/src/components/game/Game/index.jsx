@@ -1,5 +1,6 @@
 import React, { useContext, Fragment } from 'react'
 import Board from '../Board'
+import WinnerBoard from '../WinnerBoard'
 import Sidebar from '../Sidebar'
 import ModalHands from '../ModalHands'
 import ModalKing from '../ModalKing'
@@ -20,10 +21,7 @@ const Game = () => {
       {game.modalKing.isActive && game.king.id === userId && <ModalKing />}
 
       {game.phase.phaseGame < 2 && <Board />}
-
-      {game.phase.phaseGame === 2 && (
-        <h3 className={style.title}>The Winner is ! {game.lastWinner}</h3>
-      )}
+      {game.phase.phaseGame === 2 && <WinnerBoard />}
 
       <Sidebar />
     </div>
