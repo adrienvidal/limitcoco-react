@@ -155,8 +155,6 @@ const GameState = (props) => {
   const submitWinnerDeck = () => {
     // push the last winner
     state.game.lastWinner = state.game.modalKing.userId
-    state.game.scores[state.game.modalKing.userId] =
-      state.game.scores[state.game.modalKing.userId] + 1
 
     showModalKing(false)
     changePhaseGame(2)

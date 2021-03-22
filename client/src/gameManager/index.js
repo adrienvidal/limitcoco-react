@@ -54,25 +54,50 @@ export function createNewGame(playerIds) {
 }
 
 export function setNextRoundGame(gameState) {
-  return gameState
+  // no touch : players, modalHands, modalKing, lastWinner
 
-  /* return {
-    players: playerIds,
-    deck: { questions: questionCards, answers: answerCards },
-    phase: { phaseGame: 0, phasePlayer: phasePlayer },
-    hands: playerHands,
-    king: {
-      id: kingId,
-      question: kingQuestion,
-      playersAnswers: playersAnswers,
-    },
-    round: 1,
-    scores: scores,
-    modalHands: modalHands,
-    modalKing: {
-      isActive: false,
-      userId: null,
-    },
-    lastWinner: null,
-  } */
+  // const questionCards = cards.getQuestions()
+  // const answerCards = cards.getAnswers()
+  const kingQuestion = cards.draw(gameState.deck.questions, 1)[0]
+  const playersAnswers = {}
+  const playerHands = {}
+  const phasePlayer = []
+
+  gameState.players.forEach((playerId) => {
+    playersAnswers[playerId] = []
+
+    if (playerId !== gameState.king.id) {
+      // every players draw card but king
+      playerHands[playerId] = [
+        ...gameState.hands[playerId],
+        cards.draw(gameState.deck.answers, 1),
+      ]
+    }
+
+    phasePlayer.push({
+      id: playerId,
+      hasPlayed: false,
+    })
+  })
+
+  // phase
+  gameState.phase = { phaseGame: 0, phasePlayer: phasePlayer }
+
+  // hands
+  gameState.hands = playerHands
+
+  // king
+  gameState.king = {
+    id: gameState.lastWinner,
+    question: kingQuestion,
+    playersAnswers: playersAnswers,
+  }
+  // round
+  gameState.round++
+
+  // scores
+  gameState.scores[gameState.modalKing.userId] =
+    gameState.scores[gameState.modalKing.userId] + 1
+
+  return gameState
 }
