@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import AnswerCard from '../../common/AnswerCard'
-import { Button1, Button2 } from '../../common/Buttons'
+import { Button1 } from '../../common/Buttons'
+import logo from '../../../assets/images/logo.jpg'
 import trophyImg from '../../../assets/images/trophy.png'
 import style from './index.module.scss'
 
@@ -14,12 +14,16 @@ const WinnerBoard = () => {
 
   return (
     <div className={style.main}>
-      <p className={style.desc}>
-        <span>The Winner is !</span>
+      <div className={style.desc}>
+        <img src={logo} className={style.logo} alt='winner' />
+        <span>The Winner is</span>
         <img src={trophyImg} className={style.trophy} alt='winner' />
         <span>{game.lastWinner}</span>
-        <Button1 text='Next Round' onAction={nextRound} />
-      </p>
+
+        {game.lastWinner === userId && (
+          <Button1 text='Next Round' onAction={nextRound} />
+        )}
+      </div>
     </div>
   )
 }

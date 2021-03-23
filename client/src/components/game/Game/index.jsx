@@ -20,10 +20,13 @@ const Game = () => {
       {game.modalHands[userId] && <ModalHands />}
       {game.modalKing.isActive && game.king.id === userId && <ModalKing />}
 
-      {game.phase.phaseGame < 2 && <Board />}
+      {game.phase.phaseGame < 2 && (
+        <Fragment>
+          <Board />
+          <Sidebar />
+        </Fragment>
+      )}
       {game.phase.phaseGame === 2 && <WinnerBoard />}
-
-      <Sidebar />
     </div>
   )
 }
