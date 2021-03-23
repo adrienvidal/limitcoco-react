@@ -211,14 +211,12 @@ const GameState = (props) => {
   const nextRound = () => {
     const nextRoundGame = setNextRoundGame(state.game)
 
-    console.log('nextRoundGame', nextRoundGame)
-
-    /* return new Promise((resolve) => {
+    return new Promise((resolve) => {
       socket.emit('server:game:update', nextRoundGame, () => {
         dispatch({ type: 'SET_GAME_STATE', payload: nextRoundGame })
         resolve(nextRoundGame)
       })
-    }) */
+    })
   }
 
   return (

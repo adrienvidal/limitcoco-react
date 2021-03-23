@@ -84,7 +84,13 @@ class CARDS {
     for (let i = 0; i < number; i++) {
       cardsDrawn.push(cards.pop())
     }
-    return cardsDrawn
+
+    switch (number) {
+      case 1:
+        return cardsDrawn[0]
+      default:
+        return cardsDrawn
+    }
   }
 }
 

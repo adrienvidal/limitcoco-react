@@ -5,7 +5,7 @@ export function createNewGame(playerIds) {
   const kingId = playerIds[0]
   const questionCards = cards.getQuestions()
   const answerCards = cards.getAnswers()
-  const kingQuestion = cards.draw(questionCards, 1)[0]
+  const kingQuestion = cards.draw(questionCards, 1)
   const playerHands = {}
   const playersAnswers = {}
   const scores = {}
@@ -58,7 +58,7 @@ export function setNextRoundGame(gameState) {
 
   // const questionCards = cards.getQuestions()
   // const answerCards = cards.getAnswers()
-  const kingQuestion = cards.draw(gameState.deck.questions, 1)[0]
+  const kingQuestion = cards.draw(gameState.deck.questions, 1)
   const playersAnswers = {}
   const playerHands = {}
   const phasePlayer = []
@@ -66,8 +66,10 @@ export function setNextRoundGame(gameState) {
   gameState.players.forEach((playerId) => {
     playersAnswers[playerId] = []
 
-    if (playerId !== gameState.king.id) {
-      // every players draw card but king
+    // every players draw card but king
+    if (playerId === gameState.king.id) {
+      playerHands[playerId] = gameState.hands[playerId]
+    } else {
       playerHands[playerId] = [
         ...gameState.hands[playerId],
         cards.draw(gameState.deck.answers, 1),
