@@ -21,11 +21,11 @@ const Sidebar = () => {
         {game.players &&
           game.players.map((player) => {
             return (
-              <div key={player} className={style.player}>
+              <div key={player.id} className={style.player}>
                 <ul>
-                  <li className={style.name}>{player}</li>
+                  <li className={style.name}>{player.nickname}</li>
                   <li>
-                    Score: <span>{game.scores[player]}</span>
+                    Score: <span>{game.scores[player.id]}</span>
                   </li>
                   <li>
                     Phase: <span>wait</span>

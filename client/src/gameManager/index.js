@@ -1,7 +1,17 @@
+import {
+  uniqueNamesGenerator,
+  Config,
+  adjectives,
+  colors,
+  animals,
+  names,
+} from 'unique-names-generator'
+
 import cards from './cards'
 
 export function createNewGame(playerIds) {
   // Init constructor
+  const players = []
   const kingId = playerIds[0]
   const questionCards = cards.getQuestions()
   const answerCards = cards.getAnswers()
@@ -14,7 +24,16 @@ export function createNewGame(playerIds) {
 
   console.log('kingQuestion', kingQuestion)
 
+  // const randomName = uniqueNamesGenerator({ dictionaries: [adjectives, colors, animals] }); // big_red_donkey
+
   playerIds.forEach((playerId) => {
+    players.push({
+      id: playerId,
+      nickname: uniqueNamesGenerator({
+        dictionaries: [names, animals],
+        separator: ' ',
+      }),
+    })
     // Init players Hands
     playerHands[playerId] = cards.draw(answerCards, 3)
 
@@ -33,7 +52,7 @@ export function createNewGame(playerIds) {
   })
 
   return {
-    players: playerIds,
+    players: players,
     deck: { questions: questionCards, answers: answerCards },
     phase: { phaseGame: 0, phasePlayer: phasePlayer },
     hands: playerHands,
