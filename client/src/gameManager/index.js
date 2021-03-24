@@ -30,7 +30,7 @@ export function createNewGame(playerIds) {
     players.push({
       id: playerId,
       nickname: uniqueNamesGenerator({
-        dictionaries: [names, animals],
+        dictionaries: [adjectives, animals],
         separator: ' ',
       }),
     })
@@ -82,21 +82,21 @@ export function setNextRoundGame(gameState) {
   const playerHands = {}
   const phasePlayer = []
 
-  gameState.players.forEach((playerId) => {
-    playersAnswers[playerId] = []
+  gameState.players.forEach((player) => {
+    playersAnswers[player.id] = []
 
     // every players draw card but king
-    if (playerId === gameState.king.id) {
-      playerHands[playerId] = gameState.hands[playerId]
+    if (player.id === gameState.king.id) {
+      playerHands[player.id] = gameState.hands[player.id]
     } else {
-      playerHands[playerId] = [
-        ...gameState.hands[playerId],
+      playerHands[player.id] = [
+        ...gameState.hands[player.id],
         cards.draw(gameState.deck.answers, 1),
       ]
     }
 
     phasePlayer.push({
-      id: playerId,
+      id: player.id,
       hasPlayed: false,
     })
   })
@@ -117,8 +117,8 @@ export function setNextRoundGame(gameState) {
   gameState.round++
 
   // scores
-  gameState.scores[gameState.modalKing.userId] =
-    gameState.scores[gameState.modalKing.userId] + 1
+  gameState.scores[gameState.lastWinner] =
+    gameState.scores[gameState.lastWinner] + 1
 
   return gameState
 }
