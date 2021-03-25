@@ -16,7 +16,7 @@ const WinnerBoard = () => {
     <div className={style.main}>
       <div className={style.desc}>
         <img src={logo} className={style.logo} alt='winner' />
-        <span>The Winner is</span>
+        <span>The Winner is :</span>
         <img src={trophyImg} className={style.trophy} alt='winner' />
         <span>
           {game.players.find((e) => e.id === game.lastWinner).nickname}
