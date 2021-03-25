@@ -11,7 +11,8 @@ const initialState = {
   userId: null,
 }
 
-const socket = io('http://localhost:5000')
+const socket = io(process.env.REACT_APP_API_URL)
+// const socket = io('http://localhost:5000')
 
 const GameState = (props) => {
   const [state, dispatch] = useReducer(gameReducer, initialState)
