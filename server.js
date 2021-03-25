@@ -1,4 +1,6 @@
-const app = require('express')()
+const express = require('express')
+const path = require('path')
+const app = express()
 
 const server = require('http').createServer(app)
 const io = require('socket.io')(server, {
@@ -54,6 +56,18 @@ io.on('connection', (socket) => {
     callback()
   })
 })
+
+app.get('/', (req, res) => res.json({ msg: 'Welcome to contactKeeper API!' }))
+
+// Serve static assets in production
+if (process.env.NODE_ENV === 'production') {
+  // Set static folder
+  app.use(express.static('client/build'))
+
+  app.get('*', () =>
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  )
+}
 
 // start server
 const PORT = process.env.PORT || 5000
