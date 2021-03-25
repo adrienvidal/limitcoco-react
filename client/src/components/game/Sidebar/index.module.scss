@@ -25,16 +25,28 @@
     margin-bottom: 20px;
   }
 
-  .name {
-    font-size: 20px;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-  }
   li {
     display: flex;
 
     span {
       margin-left: auto;
+    }
+  }
+
+  .name {
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+
+    .player-icon {
+      height: 20px;
+      margin-right: 10px;
+    }
+
+    span {
+      margin-left: 0;
     }
   }
 }
