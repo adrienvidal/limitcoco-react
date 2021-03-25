@@ -57,8 +57,6 @@ io.on('connection', (socket) => {
   })
 })
 
-app.get('/', (req, res) => res.json({ msg: 'Welcome to contactKeeper API!' }))
-
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
